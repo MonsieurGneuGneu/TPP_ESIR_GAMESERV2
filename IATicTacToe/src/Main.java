@@ -18,7 +18,7 @@ public class Main {
 			System.out.println(printTable(table));
 			
 			long time = System.nanoTime();
-			while(System.nanoTime()<time+1000000000);//wait 1s
+			while(System.nanoTime()<time+1000000000) ;//wait 1s
 			
 			//detect win
 			if(detectEnd(table))break;
@@ -44,23 +44,23 @@ public class Main {
 		int counto = 0;
 		
 		/*row check*/
-		for(int i = 0;i<table.length;++i){
-			for(int j = 0;j<table[i].length;++j){
-				if(table[i][j].filledBy()==Fill.blank)flagfull=false;
-				if(table[i][j].filledBy()==Fill.x)countx++;
-				if(table[i][j].filledBy()==Fill.o)counto++;
-			}
-			if(countx==table.length){
-				System.out.println("x won!");
-				return true;
-			}
-			if(counto==table.length){
-				System.out.println("o won!");
-				return true;
-			}
-			countx = 0;
-			counto = 0;
-		}
+        for (Case[] aTable : table) {
+            for (Case anATable : aTable) {
+                if (anATable.filledBy() == Fill.blank) flagfull = false;
+                if (anATable.filledBy() == Fill.x) countx++;
+                if (anATable.filledBy() == Fill.o) counto++;
+            }
+            if (countx == table.length) {
+                System.out.println("x won!");
+                return true;
+            }
+            if (counto == table.length) {
+                System.out.println("o won!");
+                return true;
+            }
+            countx = 0;
+            counto = 0;
+        }
 		
 		/*column check*/
 		for(int j = 0;j<table.length;++j){
@@ -121,34 +121,34 @@ public class Main {
 	/**
 	 * 
 	 * @param table
+     * the table
 	 * @return
 	 * the case where AI plays, or a null case if it cannot play (conceed)
 	 * or a -1/-1 case if game is a tie
 	 */
-	public static Case chooseCaseToFill(Case[][] table,Fill myFill){
-		Case playLoc = table[0][0];
+	private static Case chooseCaseToFill(Case[][] table, Fill myFill){
 		/* 1) checks if AI can win (plays if found)*/
-		for(int i = 0;i<table.length;++i){
-			for(int j = 0;j<table[i].length;++j){
-				if(table[i][j].filledBy()==Fill.blank){
-					if(hasToPlayHereToWin(table[i][j], table, myFill)){
-						return table[i][j]; 
-					}
-				}				
-			}	
-		}
+        for (Case[] aTable : table) {
+            for (Case anATable : aTable) {
+                if (anATable.filledBy() == Fill.blank) {
+                    if (hasToPlayHereToWin(anATable, table, myFill)) {
+                        return anATable;
+                    }
+                }
+            }
+        }
 		/* 2) checks if foe is winning on his next turn (plays if found)*/
-		for(int i = 0;i<table.length;++i){
-			for(int j = 0;j<table[i].length;++j){
-				if(table[i][j].filledBy()==Fill.blank){
-					if(hasToPlayHereToDef(table[i][j], table, myFill)){
-						return table[i][j]; 
-					}
-				}				
-			}	
-		}
+        for (Case[] aTable : table) {
+            for (Case anATable : aTable) {
+                if (anATable.filledBy() == Fill.blank) {
+                    if (hasToPlayHereToDef(anATable, table, myFill)) {
+                        return anATable;
+                    }
+                }
+            }
+        }
 		/* 3) plays somewhere else (method yet to define, temporary = last free place)*/
-		playLoc = table[table.length/2][table[table.length/2].length/2];
+		Case playLoc = table[table.length/2][table[table.length/2].length/2];
 		if(playLoc.filledBy()==Fill.blank){
 			return playLoc;			
 		}else{
@@ -156,7 +156,7 @@ public class Main {
 		}
 	}
 	
-	public static Case playSomewhere(Case[][] table){
+	private static Case playSomewhere(Case[][] table){
 		for(Case[] clist : table){
 			for(Case c : clist){
 				if(c.filledBy()==Fill.blank)return c;
@@ -175,32 +175,22 @@ public class Main {
 	 * @return
 	 * true if the other cases of the row, col or diag all have the symbol of the foe
 	 */
-	public static boolean hasToPlayHereToDef(Case _case,Case[][] table,Fill myFill){
+	private static boolean hasToPlayHereToDef(Case _case, Case[][] table, Fill myFill){
 		Fill oppFill = myFill==Fill.o?Fill.x:Fill.o;
 		
 		/*checking the diag1 if case is on diag1*/
 		int count = 0;
-		if(_case.col()==_case.row()){
-			for(int i = 0;i<table.length;++i){
-				if(table[i][i].filledBy()==oppFill)++count;
-			}
-			if(count==table.length-1) return true;
-		}
-		
-		/*checking diag2 if case is on diag2*/
+        if (checkDiag1(_case, table, oppFill, count)) return true;
+
+        /*checking diag2 if case is on diag2*/
 		count = 0;
-		if(_case.col()+_case.row()==table.length-1){
-			for(int i = 0;i<table.length;++i){
-				if(table[i][table.length-i-1].filledBy()==oppFill)++count;						
-			}
-			if(count==table.length-1) return true;
-		}
-		
-		/*checking the column*/
+        if (checkDiag2(_case, table, oppFill, count)) return true;
+
+        /*checking the column*/
 		count=0;
-		for(int i = 0;i<table.length;++i){
-			if(table[i][_case.col()].filledBy()==oppFill)++count;
-		}
+        for (Case[] aTable : table) {
+            if (aTable[_case.col()].filledBy() == oppFill) ++count;
+        }
 		if(count==table.length-1) return true;
 		
 		/*checking the row*/
@@ -208,12 +198,31 @@ public class Main {
 		for(int i = 0;i<table.length;++i){
 			if(table[_case.row()][i].filledBy()==oppFill)++count;
 		}
-		if(count==table.length-1) return true;
-		
-		return false;
-	}
-	
-	/**
+        return count == table.length - 1;
+
+    }
+
+    private static boolean checkDiag2(Case _case, Case[][] table, Fill oppFill, int count) {
+        if(_case.col()+_case.row()==table.length-1){
+            for(int i = 0;i<table.length;++i){
+                if(table[i][table.length-i-1].filledBy()==oppFill)++count;
+            }
+            return count == table.length - 1;
+        }
+        return false;
+    }
+
+    private static boolean checkDiag1(Case _case, Case[][] table, Fill oppFill, int count) {
+        if(_case.col()==_case.row()){
+            for(int i = 0;i<table.length;++i){
+                if(table[i][i].filledBy()==oppFill)++count;
+            }
+            return count == table.length - 1;
+        }
+        return false;
+    }
+
+    /**
 	 * Computes if the AI has to play on a case to win
 	 * 
 	 * @param _case
@@ -223,30 +232,20 @@ public class Main {
 	 * @return
 	 * true if the other cases of the row, col or diag all have the symbol of the AI
 	 */
-	public static boolean hasToPlayHereToWin(Case _case,Case[][] table,Fill myFill){		
+	private static boolean hasToPlayHereToWin(Case _case, Case[][] table, Fill myFill){
 		/*checking the diag1 if case is on diag1*/
 		int count = 0;
-		if(_case.col()==_case.row()){
-			for(int i = 0;i<table.length;++i){
-				if(table[i][i].filledBy()==myFill)++count;
-			}
-			if(count==table.length-1) return true;
-		}
-		
-		/*checking diag2 if case is on diag2*/
+        if (checkDiag1(_case, table, myFill, count)) return true;
+
+        /*checking diag2 if case is on diag2*/
 		count = 0;
-		if(_case.col()+_case.row()==table.length-1){
-			for(int i = 0;i<table.length;++i){
-				if(table[i][table.length-i-1].filledBy()==myFill)++count;						
-			}
-			if(count==table.length-1) return true;
-		}
-		
-		/*checking the column*/
+        if (checkDiag2(_case, table, myFill, count)) return true;
+
+        /*checking the column*/
 		count=0;
-		for(int i = 0;i<table.length;++i){
-			if(table[i][_case.col()].filledBy()==myFill)++count;
-		}
+        for (Case[] aTable : table) {
+            if (aTable[_case.col()].filledBy() == myFill) ++count;
+        }
 		if(count==table.length-1) return true;
 		
 		/*checking the row*/
@@ -254,10 +253,9 @@ public class Main {
 		for(int i = 0;i<table.length;++i){
 			if(table[_case.row()][i].filledBy()==myFill)++count;
 		}
-		if(count==table.length-1) return true;
-		
-		return false;
-	}
+        return count == table.length - 1;
+
+    }
 	
 	/**
 	 * Assuming table has same width and height
@@ -267,25 +265,28 @@ public class Main {
 	 * @return
 	 * content to print
 	 */
-	public static String printTable(Case[][] table){
-		String res = "";
-		for(int i = 0;i<table.length;++i){
-			for(int j = 0;j<table[i].length;++j){
-				switch(table[i][j].filledBy()){
-				case o:res+="o";
-					break;
-				case x:res+="x";
-					break;
-				case blank:res+=" ";
-					break;
-				default:
-					break;
-				}
-				res+="|";
-			}
-			res+="\n";
-		}
-		return res;
+	private static String printTable(Case[][] table){
+		StringBuilder res = new StringBuilder();
+        for (Case[] aTable : table) {
+            for (Case anATable : aTable) {
+                switch (anATable.filledBy()) {
+                    case o:
+                        res.append("o");
+                        break;
+                    case x:
+                        res.append("x");
+                        break;
+                    case blank:
+                        res.append(" ");
+                        break;
+                    default:
+                        break;
+                }
+                res.append("|");
+            }
+            res.append("\n");
+        }
+		return res.toString();
 	}
 }
 
@@ -293,29 +294,29 @@ public class Main {
 enum Fill{
 	x,
 	o,
-	blank;
+	blank
 }
 
 class Case{
 	private int row;
 	private int col;
 	private Fill filledBy;
-	public Case(int row, int col){
+	Case(int row, int col){
 		this.row=row;
 		this.col=col;
 		this.filledBy=Fill.blank;
 	}
 	
-	public int row(){
+	int row(){
 		return row;
 	}
-	public int col(){
+	int col(){
 		return col;
 	}
-	public void fill(Fill fill){
+	void fill(Fill fill){
 		this.filledBy=fill;
 	}
-	public Fill filledBy(){
+	Fill filledBy(){
 		return filledBy;
 	}
 }
