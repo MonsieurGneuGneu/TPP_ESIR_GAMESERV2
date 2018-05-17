@@ -79,6 +79,41 @@ public class Main {
 			countx = 0;
 			counto = 0;
 		}
+		
+		/*diag1 check*/
+		for(int i = 0;i<table.length;++i){
+			if(table[i][i].filledBy()==Fill.x)countx++;
+			if(table[i][i].filledBy()==Fill.o)counto++;
+		}
+		if(countx==table.length){
+			System.out.println("x won!");
+			return true;
+		}
+		if(counto==table.length){
+			System.out.println("o won!");
+			return true;
+		}
+		countx=0;
+		counto=0;
+		
+		/*diag2 check*/
+		for(int i = 0;i<table.length;++i){
+			if(table[i][table.length-i-1].filledBy()==Fill.x)countx++;
+			if(table[i][table.length-i-1].filledBy()==Fill.o)counto++;
+		}
+		if(countx==table.length){
+			System.out.println("x won!");
+			return true;
+		}
+		if(counto==table.length){
+			System.out.println("o won!");
+			return true;
+		}
+		
+		//useless
+		countx=0;
+		counto=0;
+		
 		if(flagfull)System.out.println("no winner!");
 		return flagfull;
 	}
@@ -135,7 +170,7 @@ public class Main {
 		
 		/*checking diag2 if case is on diag2*/
 		count = 0;
-		if(_case.col()+_case.row()==table.length){
+		if(_case.col()+_case.row()==table.length-1){
 			for(int i = 0;i<table.length;++i){
 				if(table[i][table.length-i-1].filledBy()==oppFill)++count;						
 			}
@@ -181,7 +216,7 @@ public class Main {
 		
 		/*checking diag2 if case is on diag2*/
 		count = 0;
-		if(_case.col()+_case.row()==table.length){
+		if(_case.col()+_case.row()==table.length-1){
 			for(int i = 0;i<table.length;++i){
 				if(table[i][table.length-i-1].filledBy()==myFill)++count;						
 			}
