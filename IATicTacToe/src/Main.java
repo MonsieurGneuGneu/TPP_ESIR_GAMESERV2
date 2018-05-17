@@ -185,7 +185,7 @@ public class Main {
 
 	private static Case playSomewhere(Case[][] table){
 
-	    ArrayList<Case> res = new ArrayList<Case>();
+	    ArrayList<Case> res = new ArrayList<>();
 	    for(Case[] clist : table){
 			for(Case c : clist){
 				if(c.filledBy()==Fill.blank)res.add(c);
