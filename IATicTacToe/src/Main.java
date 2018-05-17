@@ -133,14 +133,11 @@ public class Main {
 			if(count==table.length-1) return true;
 		}
 		
-		/*checking diag2 if case if on diag2*/
+		/*checking diag2 if case is on diag2*/
+		count = 0;
 		if(_case.col()+_case.row()==table.length){
 			for(int i = 0;i<table.length;++i){
-				for(int j = 0;j<table[i].length;++j){
-					if(i+j==table.length){
-						if(table[i][j].filledBy()==oppFill)++count;						
-					}
-				}
+				if(table[i][table.length-i-1].filledBy()==oppFill)++count;						
 			}
 			if(count==table.length-1) return true;
 		}
@@ -182,14 +179,11 @@ public class Main {
 			if(count==table.length-1) return true;
 		}
 		
-		/*checking diag2 if case if on diag2*/
+		/*checking diag2 if case is on diag2*/
+		count = 0;
 		if(_case.col()+_case.row()==table.length){
 			for(int i = 0;i<table.length;++i){
-				for(int j = 0;j<table[i].length;++j){
-					if(i+j==table.length){
-						if(table[i][j].filledBy()==myFill)++count;						
-					}
-				}
+				if(table[i][table.length-i-1].filledBy()==myFill)++count;						
 			}
 			if(count==table.length-1) return true;
 		}
