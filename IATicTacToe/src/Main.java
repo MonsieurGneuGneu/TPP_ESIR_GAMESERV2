@@ -127,23 +127,42 @@ public class Main {
 	 */
 	public static Case chooseCaseToFill(Case[][] table,Fill myFill){
 		Case playLoc = table[0][0];
+		/* 1) checks if AI can win (plays if found)*/
 		for(int i = 0;i<table.length;++i){
 			for(int j = 0;j<table[i].length;++j){
 				if(table[i][j].filledBy()==Fill.blank){
-					/* 1) checks if AI can win (plays if found)*/
 					if(hasToPlayHereToWin(table[i][j], table, myFill)){
 						return table[i][j]; 
 					}
-					/* 2) checks if foe is winning on his next turn (plays if found)*/
-					if(hasToPlayHereToDef(table[i][j], table, myFill)){
-						return table[i][j]; 
-					}
-					/* 3) plays somewhere else (method yet to define, temporary = last free place)*/
-					playLoc = table[i][j];
 				}				
 			}	
 		}
-		return playLoc;
+		/* 2) checks if foe is winning on his next turn (plays if found)*/
+		for(int i = 0;i<table.length;++i){
+			for(int j = 0;j<table[i].length;++j){
+				if(table[i][j].filledBy()==Fill.blank){
+					if(hasToPlayHereToDef(table[i][j], table, myFill)){
+						return table[i][j]; 
+					}
+				}				
+			}	
+		}
+		/* 3) plays somewhere else (method yet to define, temporary = last free place)*/
+		playLoc = table[table.length/2][table[table.length/2].length/2];
+		if(playLoc.filledBy()==Fill.blank){
+			return playLoc;			
+		}else{
+			return playSomewhere(table);
+		}
+	}
+	
+	public static Case playSomewhere(Case[][] table){
+		for(Case[] clist : table){
+			for(Case c : clist){
+				if(c.filledBy()==Fill.blank)return c;
+			}
+		}
+		return null;
 	}
 	
 	/**
