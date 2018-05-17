@@ -38,45 +38,43 @@ public class Main {
 	}
 	
 	private static boolean detectEnd(Case[][] table){
-		boolean flagx = false;
-		boolean flago = false;
 		boolean flagfull = true;
 		
 		int countx = 0;
 		int counto = 0;
 		
 		/*row check*/
-		for(int i = 0;!flagx && !flago && i<table.length;++i){
-			for(int j = 0;!flagx && !flago && j<table[i].length;++j){
+		for(int i = 0;i<table.length;++i){
+			for(int j = 0;j<table[i].length;++j){
 				if(table[i][j].filledBy()==Fill.blank)flagfull=false;
 				if(table[i][j].filledBy()==Fill.x)countx++;
 				if(table[i][j].filledBy()==Fill.o)counto++;
 			}
 			if(countx==table.length){
-				flagx=true;
 				System.out.println("x won!");
+				return true;
 			}
 			if(counto==table.length){
-				flago=true;
 				System.out.println("o won!");
+				return true;
 			}
 			countx = 0;
 			counto = 0;
 		}
 		
 		/*column check*/
-		for(int j = 0;!flagx && !flago && j<table.length;++j){
-			for(int i = 0;!flagx && !flago && i<table[j].length;++i){
+		for(int j = 0;j<table.length;++j){
+			for(int i = 0;i<table[j].length;++i){
 				if(table[i][j].filledBy()==Fill.x)countx++;
 				if(table[i][j].filledBy()==Fill.o)counto++;
 			}
 			if(countx==table.length){
-				flagx=true;
 				System.out.println("x won!");
+				return true;
 			}
 			if(counto==table.length){
-				flago=true;
 				System.out.println("o won!");
+				return true;
 			}
 			countx = 0;
 			counto = 0;
@@ -125,13 +123,26 @@ public class Main {
 	 */
 	public static boolean hasToPlayHereToDef(Case _case,Case[][] table,Fill myFill){
 		Fill oppFill = myFill==Fill.o?Fill.x:Fill.o;
-		/*checking the diag*/
+		
+		/*checking the diag1 if case is on diag1*/
 		int count = 0;
 		if(_case.col()==_case.row()){
 			for(int i = 0;i<table.length;++i){
 				if(table[i][i].filledBy()==oppFill)++count;
 			}
-			if(count==table.length-2) return true;
+			if(count==table.length-1) return true;
+		}
+		
+		/*checking diag2 if case if on diag2*/
+		if(_case.col()+_case.row()==table.length){
+			for(int i = 0;i<table.length;++i){
+				for(int j = 0;j<table[i].length;++j){
+					if(i+j==table.length){
+						if(table[i][j].filledBy()==oppFill)++count;						
+					}
+				}
+			}
+			if(count==table.length-1) return true;
 		}
 		
 		/*checking the column*/
@@ -139,14 +150,14 @@ public class Main {
 		for(int i = 0;i<table.length;++i){
 			if(table[i][_case.col()].filledBy()==oppFill)++count;
 		}
-		if(count==table.length-2) return true;
+		if(count==table.length-1) return true;
 		
 		/*checking the row*/
 		count=0;
 		for(int i = 0;i<table.length;++i){
 			if(table[_case.row()][i].filledBy()==oppFill)++count;
 		}
-		if(count==table.length-2) return true;
+		if(count==table.length-1) return true;
 		
 		return false;
 	}
@@ -162,13 +173,25 @@ public class Main {
 	 * true if the other cases of the row, col or diag all have the symbol of the AI
 	 */
 	public static boolean hasToPlayHereToWin(Case _case,Case[][] table,Fill myFill){		
-		/*checking the diag*/
+		/*checking the diag1 if case is on diag1*/
 		int count = 0;
 		if(_case.col()==_case.row()){
 			for(int i = 0;i<table.length;++i){
 				if(table[i][i].filledBy()==myFill)++count;
 			}
-			if(count==table.length-2) return true;
+			if(count==table.length-1) return true;
+		}
+		
+		/*checking diag2 if case if on diag2*/
+		if(_case.col()+_case.row()==table.length){
+			for(int i = 0;i<table.length;++i){
+				for(int j = 0;j<table[i].length;++j){
+					if(i+j==table.length){
+						if(table[i][j].filledBy()==myFill)++count;						
+					}
+				}
+			}
+			if(count==table.length-1) return true;
 		}
 		
 		/*checking the column*/
@@ -176,14 +199,14 @@ public class Main {
 		for(int i = 0;i<table.length;++i){
 			if(table[i][_case.col()].filledBy()==myFill)++count;
 		}
-		if(count==table.length-2) return true;
+		if(count==table.length-1) return true;
 		
 		/*checking the row*/
 		count=0;
 		for(int i = 0;i<table.length;++i){
 			if(table[_case.row()][i].filledBy()==myFill)++count;
 		}
-		if(count==table.length-2) return true;
+		if(count==table.length-1) return true;
 		
 		return false;
 	}
