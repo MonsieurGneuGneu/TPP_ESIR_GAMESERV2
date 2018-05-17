@@ -172,6 +172,8 @@ public class Main {
                 }
             }
         }
+
+
 		/* 5) plays somewhere else (method yet to define, temporary = last free place)*/
 		Case playLoc = table[table.length/2][table[table.length/2].length/2];
 		if(playLoc.filledBy()==Fill.blank){
@@ -182,13 +184,19 @@ public class Main {
 	}
 
 	private static Case playSomewhere(Case[][] table){
+
 	    ArrayList<Case> res = new ArrayList<Case>();
 	    for(Case[] clist : table){
 			for(Case c : clist){
 				if(c.filledBy()==Fill.blank)res.add(c);
 			}
 		}
-		return res.get(new Random().nextInt(res.size()));
+        if(table.length == 3 && res.size()==table.length*table.length-1){
+            return table[0][0];
+        }else{
+            return res.get(new Random().nextInt(res.size()));//to modif (minimax)
+        }
+
 	}
 
 	/**
