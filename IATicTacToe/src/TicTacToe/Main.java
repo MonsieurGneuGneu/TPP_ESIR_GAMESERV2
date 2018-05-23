@@ -1,8 +1,5 @@
 package TicTacToe;
 
-import java.util.ArrayList;
-import java.util.Random;
-
 public class Main {
 	public static void main(String[] args){
 		int size=3;
@@ -118,9 +115,6 @@ public class Main {
 			return true;
 		}
 
-		//useless
-		countx=0;
-		counto=0;
 
 		if(flagfull)System.out.println("no winner!");
 		return flagfull;

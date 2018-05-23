@@ -3,20 +3,18 @@ package TicTacToe;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class BasicAI {
+class BasicAI {
     private Fill myFill;
-    private Fill oppFill;
 
-    public BasicAI(Fill myFill){
+    BasicAI(Fill myFill){
         this.myFill = myFill;
-        this.oppFill = myFill==Fill.o?Fill.x:Fill.o;
     }
 
-    public Fill getMyFill(){
+    Fill getMyFill(){
         return myFill;
     }
 
-    public Case chooseCaseToFill(Case[][] table){
+    Case chooseCaseToFill(Case[][] table){
 
         /* 1) checks if AI can win (plays if found)*/
         for (Case[] aTable : table) {

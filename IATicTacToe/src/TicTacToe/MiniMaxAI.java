@@ -2,16 +2,16 @@ package TicTacToe;
 
 import java.util.ArrayList;
 
-public class MiniMaxAI {
+class MiniMaxAI {
     private Fill myFill;
     private Fill oppFill;
 
-    public MiniMaxAI(Fill myFill){
+    MiniMaxAI(Fill myFill){
         this.myFill = myFill;
         this.oppFill = myFill==Fill.o?Fill.x:Fill.o;
     }
 
-    public Fill getMyFill(){
+    Fill getMyFill(){
         return myFill;
     }
 
