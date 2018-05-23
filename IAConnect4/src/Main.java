@@ -3,10 +3,11 @@ import java.util.Random;
 
 public class Main {
 	public static void main(String[] args){
-		int size=3;
-		Case[][] table = new Case[size][size];
-		for(int i = 0;i<size;++i){
-			for(int j = 0;j<size;++j){
+		int width = 7;
+		int height = 6;
+		Case[][] table = new Case[width][height];
+		for(int i = 0;i<width;++i){
+			for(int j = 0;j<height;++j){
 				table[i][j]=new Case(i,j);
 			}
 		}
@@ -43,80 +44,16 @@ public class Main {
 	private static boolean detectEnd(Case[][] table){
 		boolean flagfull = true;
 
-		int countx = 0;
-		int counto = 0;
-
-		/*row check*/
-        for (Case[] aTable : table) {
-            for (Case anATable : aTable) {
-                if (anATable.filledBy() == Fill.blank) flagfull = false;
-                if (anATable.filledBy() == Fill.x) countx++;
-                if (anATable.filledBy() == Fill.o) counto++;
-            }
-            if (countx == table.length) {
-                System.out.println("x won!");
-                return true;
-            }
-            if (counto == table.length) {
-                System.out.println("o won!");
-                return true;
-            }
-            countx = 0;
-            counto = 0;
-        }
+		/*row check*/   
 
 		/*column check*/
-		for(int j = 0;j<table.length;++j){
-			for(int i = 0;i<table[j].length;++i){
-				if(table[i][j].filledBy()==Fill.x)countx++;
-				if(table[i][j].filledBy()==Fill.o)counto++;
-			}
-			if(countx==table.length){
-				System.out.println("x won!");
-				return true;
-			}
-			if(counto==table.length){
-				System.out.println("o won!");
-				return true;
-			}
-			countx = 0;
-			counto = 0;
-		}
-
+		
 		/*diag1 check*/
-		for(int i = 0;i<table.length;++i){
-			if(table[i][i].filledBy()==Fill.x)countx++;
-			if(table[i][i].filledBy()==Fill.o)counto++;
-		}
-		if(countx==table.length){
-			System.out.println("x won!");
-			return true;
-		}
-		if(counto==table.length){
-			System.out.println("o won!");
-			return true;
-		}
-		countx=0;
-		counto=0;
-
+		
 		/*diag2 check*/
-		for(int i = 0;i<table.length;++i){
-			if(table[i][table.length-i-1].filledBy()==Fill.x)countx++;
-			if(table[i][table.length-i-1].filledBy()==Fill.o)counto++;
-		}
-		if(countx==table.length){
-			System.out.println("x won!");
-			return true;
-		}
-		if(counto==table.length){
-			System.out.println("o won!");
-			return true;
-		}
-
+		
 		//useless
-		countx=0;
-		counto=0;
-
+		
 		if(flagfull)System.out.println("no winner!");
 		return flagfull;
 	}
@@ -132,71 +69,41 @@ public class Main {
 	private static Case chooseCaseToFill(Case[][] table, Fill myFill){
 		/* 1) checks if AI can win (plays if found)*/
 
-        for (Case[] aTable : table) {
-            for (Case anATable : aTable) {
-                if (anATable.filledBy() == Fill.blank) {
-                    if (hasToPlayHereToWin(anATable, table, myFill)) {
-                        return anATable;
-                    }
-                }
-            }
-        }
 		/* 2) checks if foe is winning on his next turn (plays if found)*/
 
-        for (Case[] aTable : table) {
-            for (Case anATable : aTable) {
-                if (anATable.filledBy() == Fill.blank) {
-                    if (hasToPlayHereToDef(anATable, table, myFill)) {
-                        return anATable;
-                    }
-                }
-            }
-        }
-        /* 3) checks if foe is able to create a fork on his next turn (plays if found)*/
-        for (Case[] aTable : table) {
-            for (Case anATable : aTable) {
-                if (anATable.filledBy() == Fill.blank) {
-                    if (hasToPlayHereToMakeAFork(anATable, table, myFill)) {
-                        return anATable;
-                    }
-                }
-            }
-        }
-        /* 4) checks if opponent is able to create a fork on his next turn (plays if found)*/
-        for (Case[] aTable : table) {
-            for (Case anATable : aTable) {
-                if (anATable.filledBy() == Fill.blank) {
-                    if (hasToPlayHereToPreventAFork(anATable, table, myFill)) {
-                        return anATable;
-                    }
-                }
-            }
-        }
-
-
+		/* 3) checks if AI is able to create a fork on his next turn (plays if found)*/
+        
+		/* 4) checks if opponent is able to create a fork on his next turn (plays if found)*/
+        
 		/* 5) plays somewhere else (method yet to define, temporary = last free place)*/
-		Case playLoc = table[table.length/2][table[table.length/2].length/2];
-		if(playLoc.filledBy()==Fill.blank){
-			return playLoc;
-		}else{
-			return playSomewhere(table);
-		}
+		return playSomewhere(table);
 	}
 
-	private static Case playSomewhere(Case[][] table){
-
-	    ArrayList<Case> res = new ArrayList<>();
-	    for(Case[] clist : table){
-			for(Case c : clist){
-				if(c.filledBy()==Fill.blank)res.add(c);
-			}
+	/**
+	 * Computes the minheight in this row of the table
+	 * 
+	 * @param table
+	 * the state of the game
+	 * @param row
+	 * the row to check
+	 * @return
+	 * -1 if not possible to play on a column, else the minheight in this column
+	 */
+	private static int minheight(Case[][] table, int row){
+		
+		for(int height = 0;height<table[0].length;++height){
+			if(table[row][height].filledBy()==Fill.blank)return height;
 		}
-        if(table.length == 3 && res.size()==table.length*table.length-1){
-            return table[0][0];
-        }else{
-            return res.get(new Random().nextInt(res.size()));//TODO minimax
-        }
-
+		return -1;
+		
+	}
+	
+	private static Case playSomewhere(Case[][] table){
+	    ArrayList<Case> res = new ArrayList<>();
+	    for(int row = 0;row<table.length;++row){
+	    	res.add(table[row][minheight(table,row)]);
+	    }
+	    return res.get(new Random().nextInt(res.size()));//TODO minmax
 	}
 
 	/**

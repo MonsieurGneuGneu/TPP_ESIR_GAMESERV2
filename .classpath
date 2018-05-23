@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="IAConnect4/src"/>
+	<classpathentry kind="src" path="IATicTacToe/src"/>
+	<classpathentry kind="src" path="TPP_ESIR_GAMESERV2_jhipster/src/main/java"/>
+	<classpathentry kind="src" path="TPP_ESIR_GAMESERV2_jhipster/src/test/java"/>
+	<classpathentry kind="lib" path="TPP_ESIR_GAMESERV2_jhipster/.mvn/wrapper/maven-wrapper.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="IAConnect4/bin"/>
+</classpath>
