@@ -9,8 +9,8 @@ public class Main {
 				table[i][j]=new Case(i,j);
 			}
 		}
-        BasicAI AI1 = new BasicAI(Fill.o);
-        MiniMaxAI AI2 = new MiniMaxAI(Fill.x);
+        BetterMiniMaxAI AI1 = new BetterMiniMaxAI(Fill.o, size);
+        BetterMiniMaxAI AI2 = new BetterMiniMaxAI(Fill.x, size);
 
 		/*GAME LOOP*/
 		while(true){
