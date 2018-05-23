@@ -93,12 +93,17 @@ public class Main {
                 return true;
         } 
         
-        /* diag/ check */
+        /* diag\ check */
+      // top-left to bottom-right - lower diagonals
         //TODO
         
         
-        /* diag\ check */
-     // top-left to bottom-right - lower diagonals
+      // top-left to bottom-right - upper diagonals
+        //TODO
+        
+        
+        /* diag/ check */
+     // bottom-left to top-right - lower diagonals
         for( int rowStart = 0; rowStart < table.length - 4; rowStart++){
             count = 0;
             int row, col;
@@ -113,7 +118,7 @@ public class Main {
             }
         }
 
-        // top-left to bottom-right - upper diagonals
+        // bottom-left to top-right - upper diagonals
         for(int colStart = 1; colStart < table[0].length - 4; colStart++){
             count = 0;
             int row, col;
