@@ -27,7 +27,7 @@ public class Main {
                 ;// wait 1s
 
             // detect win
-            if (detectEnd(table,c))
+            if (detectEnd(table,c,Fill.o))
                 break;
 
             /* AI 2 TURN */
@@ -41,7 +41,7 @@ public class Main {
                 ;// wait 1s
 
             // detect win
-            if (detectEnd(table,c))
+            if (detectEnd(table,c,Fill.x))
                 break;
         }
 
@@ -66,7 +66,7 @@ public class Main {
      *            the last placed token
      * @return
      */
-    private static boolean detectEnd(Case[][] table, Case lastpos) {
+    private static boolean detectEnd(Case[][] table, Case lastpos, Fill player) {
         boolean flagfull = isFull(table);
 
         int count = 0;
@@ -77,8 +77,9 @@ public class Main {
                 count++;
             else
                 count = 0;
-            if (count >= 4)
-                return true;
+            if (count >= 4){
+                System.out.println(player + " won!");
+                return true;}
         }
 
         /* vertical check */
@@ -89,17 +90,47 @@ public class Main {
             else
                 count=0;
 
-            if (count>=4)
-                return true;
+            if (count>=4){
+                System.out.println(player + " won!");
+                return true;}
         } 
         
         /* diag\ check */
       // top-left to bottom-right - lower diagonals
-        //TODO
+        for( int rowStart = table.length-1; rowStart >= 4; --rowStart){
+            count = 0;
+            int row, col;
+            for( row = rowStart, col = 0; row >= 0 && col < table[0].length; --row, ++col ){
+                if(table[row][col].filledBy()==lastpos.filledBy()){
+                    count++;
+                    if(count >= 4) {
+                        System.out.println(player + " won!");
+                        return true;}
+                }
+                else {
+                    count = 0;
+                }
+            }
+        }
         
         
       // top-left to bottom-right - upper diagonals
-        //TODO
+        for( int colStart = table.length-1; colStart >= 4; --colStart){
+            count = 0;
+            int row, col;
+            for( row = 0, col = colStart; row < table.length && col >= 0; ++row, --col ){
+                if(table[row][col].filledBy()==lastpos.filledBy()){
+                    count++;
+                    if(count >= 4) {
+                        System.out.println(player + " won!");
+                        return true;
+                    }
+                }
+                else {
+                    count = 0;
+                }
+            }
+        }
         
         
         /* diag/ check */
@@ -132,7 +163,6 @@ public class Main {
                 }
             }
         }
-        
         
         if (flagfull)
             System.out.println("no winner!");
