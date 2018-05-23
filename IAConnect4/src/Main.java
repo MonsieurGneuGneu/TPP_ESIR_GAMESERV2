@@ -14,7 +14,6 @@ public class Main {
 
         /* GAME LOOP */
         while (true) {
-            System.out.println(printTable(table));
 
             /* AI 1 TURN */
             Case c = chooseCaseToFill(table, Fill.o);
@@ -23,7 +22,7 @@ public class Main {
             System.out.println(printTable(table));
 
             long time = System.nanoTime();
-            while (System.nanoTime() < time + 1000000000)
+//            while (System.nanoTime() < time + 1000000000)
                 ;// wait 1s
 
             // detect win
@@ -37,7 +36,7 @@ public class Main {
             System.out.println(printTable(table));
 
             time = System.nanoTime();
-            while (System.nanoTime() < time + 1000000000)
+//            while (System.nanoTime() < time + 1000000000)
                 ;// wait 1s
 
             // detect win
@@ -77,12 +76,15 @@ public class Main {
                 count++;
             else
                 count = 0;
+            
             if (count >= 4) {
                 System.out.println(player + " won!");
                 return true;
             }
         }
 
+        count = 0;
+        
         /* vertical check */
         for (int row = 0; row < table.length; ++row) {
             if (table[row][lastpos.col()].filledBy() == lastpos.filledBy())
@@ -96,6 +98,8 @@ public class Main {
             }
         }
 
+        count = 0;
+        
         /* diag\ check */
         // top-left to bottom-right - lower diagonals
         for (int rowStart = table.length - 1; rowStart >= 4; --rowStart) {
@@ -114,6 +118,8 @@ public class Main {
             }
         }
 
+        count = 0;
+        
         // top-left to bottom-right - upper diagonals
         for (int colStart = table.length - 1; colStart >= 4; --colStart) {
             count = 0;
@@ -131,6 +137,8 @@ public class Main {
             }
         }
 
+        count = 0;
+        
         /* diag/ check */
         // bottom-left to top-right - lower diagonals
         for (int rowStart = 0; rowStart < table.length - 4; rowStart++) {
@@ -149,6 +157,8 @@ public class Main {
             }
         }
 
+        count = 0;
+        
         // bottom-left to top-right - upper diagonals
         for (int colStart = 1; colStart < table[0].length - 4; colStart++) {
             count = 0;
@@ -198,10 +208,7 @@ public class Main {
          * place)
          */
         Case place = playSomewhere(table);
-        while (place.col() == -1 || place.row() == -1) {
-            place = playSomewhere(table);
-        }
-
+        System.out.println(place.col() + " " + place.row());
         return place;
     }
 
@@ -222,13 +229,13 @@ public class Main {
                 return row;
         }
         return -1;
-
     }
 
     private static Case playSomewhere(Case[][] table) {
         ArrayList<Case> res = new ArrayList<>();
         for (int col = 0; col < table[0].length; ++col) {
-            res.add(table[minrow(table, col)][col]);
+            int a = minrow(table, col);
+            if(a!=-1)res.add(table[a][col]);
         }
         return res.get(new Random().nextInt(res.size()));// TODO minmax
     }
