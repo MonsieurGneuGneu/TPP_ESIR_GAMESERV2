@@ -14,7 +14,6 @@ public class Main {
 
         /* GAME LOOP */
         while (true) {
-            System.out.println(printTable(table));
 
             /* AI 1 TURN */
             Case c = chooseCaseToFill(table, Fill.o);
@@ -77,6 +76,7 @@ public class Main {
                 count++;
             else
                 count = 0;
+            
             if (count >= 4) {
                 System.out.println(player + " won!");
                 return true;
@@ -198,10 +198,7 @@ public class Main {
          * place)
          */
         Case place = playSomewhere(table);
-        while (place.col() == -1 || place.row() == -1) {
-            place = playSomewhere(table);
-        }
-
+        System.out.println(place.col() + " " + place.row());
         return place;
     }
 
@@ -222,13 +219,13 @@ public class Main {
                 return row;
         }
         return -1;
-
     }
 
     private static Case playSomewhere(Case[][] table) {
         ArrayList<Case> res = new ArrayList<>();
         for (int col = 0; col < table[0].length; ++col) {
-            res.add(table[minrow(table, col)][col]);
+            int a = minrow(table, col);
+            if(a!=-1)res.add(table[a][col]);
         }
         return res.get(new Random().nextInt(res.size()));// TODO minmax
     }
