@@ -27,7 +27,7 @@ public class Main {
                 ;// wait 1s
 
             // detect win
-            if (detectEnd(table,c,Fill.o))
+            if (detectEnd(table, c, Fill.o))
                 break;
 
             /* AI 2 TURN */
@@ -41,7 +41,7 @@ public class Main {
                 ;// wait 1s
 
             // detect win
-            if (detectEnd(table,c,Fill.x))
+            if (detectEnd(table, c, Fill.x))
                 break;
         }
 
@@ -70,100 +70,102 @@ public class Main {
         boolean flagfull = isFull(table);
 
         int count = 0;
-        
+
         /* horizontal check */
         for (int col = 0; col < table[0].length; ++col) {
             if (table[lastpos.row()][col].filledBy() == lastpos.filledBy())
                 count++;
             else
                 count = 0;
-            if (count >= 4){
+            if (count >= 4) {
                 System.out.println(player + " won!");
-                return true;}
+                return true;
+            }
         }
 
         /* vertical check */
-        for (int row=0;row<table.length;++row)
-        {
-            if (table[row][lastpos.col()].filledBy()==lastpos.filledBy())
+        for (int row = 0; row < table.length; ++row) {
+            if (table[row][lastpos.col()].filledBy() == lastpos.filledBy())
                 ++count;
             else
-                count=0;
+                count = 0;
 
-            if (count>=4){
+            if (count >= 4) {
                 System.out.println(player + " won!");
-                return true;}
-        } 
-        
-        /* diag\ check */
-      // top-left to bottom-right - lower diagonals
-        for( int rowStart = table.length-1; rowStart >= 4; --rowStart){
-            count = 0;
-            int row, col;
-            for( row = rowStart, col = 0; row >= 0 && col < table[0].length; --row, ++col ){
-                if(table[row][col].filledBy()==lastpos.filledBy()){
-                    count++;
-                    if(count >= 4) {
-                        System.out.println(player + " won!");
-                        return true;}
-                }
-                else {
-                    count = 0;
-                }
+                return true;
             }
         }
-        
-        
-      // top-left to bottom-right - upper diagonals
-        for( int colStart = table.length-1; colStart >= 4; --colStart){
+
+        /* diag\ check */
+        // top-left to bottom-right - lower diagonals
+        for (int rowStart = table.length - 1; rowStart >= 4; --rowStart) {
             count = 0;
             int row, col;
-            for( row = 0, col = colStart; row < table.length && col >= 0; ++row, --col ){
-                if(table[row][col].filledBy()==lastpos.filledBy()){
+            for (row = rowStart, col = 0; row >= 0 && col < table[0].length; --row, ++col) {
+                if (table[row][col].filledBy() == lastpos.filledBy()) {
                     count++;
-                    if(count >= 4) {
+                    if (count >= 4) {
                         System.out.println(player + " won!");
                         return true;
                     }
-                }
-                else {
+                } else {
                     count = 0;
                 }
             }
         }
-        
-        
-        /* diag/ check */
-     // bottom-left to top-right - lower diagonals
-        for( int rowStart = 0; rowStart < table.length - 4; rowStart++){
+
+        // top-left to bottom-right - upper diagonals
+        for (int colStart = table.length - 1; colStart >= 4; --colStart) {
             count = 0;
             int row, col;
-            for( row = rowStart, col = 0; row < table.length && col < table[0].length; row++, col++ ){
-                if(table[row][col].filledBy()==lastpos.filledBy()){
+            for (row = 0, col = colStart; row < table.length && col >= 0; ++row, --col) {
+                if (table[row][col].filledBy() == lastpos.filledBy()) {
                     count++;
-                    if(count >= 4) return true;
+                    if (count >= 4) {
+                        System.out.println(player + " won!");
+                        return true;
+                    }
+                } else {
+                    count = 0;
                 }
-                else {
+            }
+        }
+
+        /* diag/ check */
+        // bottom-left to top-right - lower diagonals
+        for (int rowStart = 0; rowStart < table.length - 4; rowStart++) {
+            count = 0;
+            int row, col;
+            for (row = rowStart, col = 0; row < table.length && col < table[0].length; row++, col++) {
+                if (table[row][col].filledBy() == lastpos.filledBy()) {
+                    count++;
+                    if (count >= 4) {
+                        System.out.println(player + " won!");
+                        return true;
+                    }
+                } else {
                     count = 0;
                 }
             }
         }
 
         // bottom-left to top-right - upper diagonals
-        for(int colStart = 1; colStart < table[0].length - 4; colStart++){
+        for (int colStart = 1; colStart < table[0].length - 4; colStart++) {
             count = 0;
             int row, col;
-            for( row = 0, col = colStart; row < table.length && col < table[0].length; row++, col++ ){
-                if(table[row][col].filledBy()==lastpos.filledBy()){
+            for (row = 0, col = colStart; row < table.length && col < table[0].length; row++, col++) {
+                if (table[row][col].filledBy() == lastpos.filledBy()) {
                     count++;
-                    if(count >= 4) return true;
-                }
-                else {
+                    if (count >= 4) {
+                        System.out.println(player + " won!");
+                        return true;
+                    }
+                } else {
                     count = 0;
                 }
             }
         }
-        
+
         if (flagfull)
             System.out.println("no winner!");
         return flagfull;
@@ -195,7 +197,12 @@ public class Main {
          * 5) plays somewhere else (method yet to define, temporary = last free
          * place)
          */
-        return playSomewhere(table);
+        Case place = playSomewhere(table);
+        while (place.col() == -1 || place.row() == -1) {
+            place = playSomewhere(table);
+        }
+
+        return place;
     }
 
     /**
