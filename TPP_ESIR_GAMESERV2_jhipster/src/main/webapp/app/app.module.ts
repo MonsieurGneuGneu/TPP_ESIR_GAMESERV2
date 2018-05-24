@@ -84,7 +84,7 @@ import {
             deps: [
                 Injector
             ]
-        }
+        },
     ],
     bootstrap: [ JhiMainComponent ],
 })
