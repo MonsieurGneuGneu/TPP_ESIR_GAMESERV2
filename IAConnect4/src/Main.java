@@ -190,17 +190,20 @@ public class Main {
      */
     private static Case chooseCaseToFill(Case[][] table, Fill myFill) {
         /* 1) checks if AI can win (plays if found) */
-
+        
+        
         /* 2) checks if foe is winning on his next turn (plays if found) */
 
+        
         /*
-         * 3) checks if AI is able to create a fork on his next turn (plays if
-         * found)
+         * 3) checks if AI is able to create a fork that permits winning
+         * on his next turn (plays if found)
          */
 
+        
         /*
-         * 4) checks if opponent is able to create a fork on his next turn
-         * (plays if found)
+         * 4) checks if opponent is able to create a fork that permits winning
+         * on his next turn (plays if found)
          */
 
         /*
