@@ -27,7 +27,7 @@ public class Main {
 			while(System.nanoTime()<time+1000000000) ;//wait 1s
 
 			//detect win
-			if(detectEnd(table))break;
+			if(detectEnd(table)!=0)break;
 
 			/*AI 2 TURN*/
             AI2.chooseCaseToFill(table).fill(AI2.getMyFill());
@@ -38,12 +38,12 @@ public class Main {
 			while(System.nanoTime()<time+1000000000);//wait 1s
 
 			//detect win
-			if(detectEnd(table))break;
+			if(detectEnd(table)!=0)break;
 		}
 
 	}
 
-	private static boolean detectEnd(Case[][] table){
+	static int detectEnd(Case[][] table){
 		boolean flagfull = true;
 
 		int countx = 0;
@@ -58,11 +58,11 @@ public class Main {
             }
             if (countx == table.length) {
                 System.out.println("x won!");
-                return true;
+                return 1;
             }
             if (counto == table.length) {
                 System.out.println("o won!");
-                return true;
+                return 2;
             }
             countx = 0;
             counto = 0;
@@ -76,11 +76,11 @@ public class Main {
 			}
 			if(countx==table.length){
 				System.out.println("x won!");
-				return true;
+				return 1;
 			}
 			if(counto==table.length){
 				System.out.println("o won!");
-				return true;
+				return 2;
 			}
 			countx = 0;
 			counto = 0;
@@ -93,11 +93,11 @@ public class Main {
 		}
 		if(countx==table.length){
 			System.out.println("x won!");
-			return true;
+			return 1;
 		}
 		if(counto==table.length){
 			System.out.println("o won!");
-			return true;
+			return 2;
 		}
 		countx=0;
 		counto=0;
@@ -109,16 +109,16 @@ public class Main {
 		}
 		if(countx==table.length){
 			System.out.println("x won!");
-			return true;
+			return 1;
 		}
 		if(counto==table.length){
 			System.out.println("o won!");
-			return true;
+			return 2;
 		}
-
-
+		
 		if(flagfull)System.out.println("no winner!");
-		return flagfull;
+	
+		return flagfull?3:0;
 	}
 
 
