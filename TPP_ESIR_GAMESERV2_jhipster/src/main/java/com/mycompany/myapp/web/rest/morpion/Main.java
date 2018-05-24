@@ -160,7 +160,12 @@ public class Main {
 enum Fill{
 	x,
 	o,
-	blank
+	blank;
+
+    @Override
+	public String toString(){
+	    return this.name();
+	}
 }
 
 class Case{
