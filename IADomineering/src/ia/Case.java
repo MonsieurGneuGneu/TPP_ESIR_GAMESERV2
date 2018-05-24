@@ -28,4 +28,8 @@ class Case {
 	Fill filledBy() {
 		return filledBy;
 	}
+
+	boolean equals(Case case2){
+	    return(this.row == case2.row && this.col == case2.col());
+    }
 }
