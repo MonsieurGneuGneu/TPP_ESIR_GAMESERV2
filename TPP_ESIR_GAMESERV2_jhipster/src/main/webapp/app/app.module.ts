@@ -24,8 +24,14 @@ import {
     FooterComponent,
     ProfileService,
     PageRibbonComponent,
-    ErrorComponent
+    ErrorComponent,
+    GamesbarComponent
 } from './layouts';
+import { 
+    TictactoeComponent,
+    BoardComponent,
+    CellComponent
+ } from './games';
 
 @NgModule({
     imports: [
@@ -44,7 +50,11 @@ import {
         NavbarComponent,
         ErrorComponent,
         PageRibbonComponent,
-        FooterComponent
+        FooterComponent,
+        GamesbarComponent,
+        TictactoeComponent,
+        BoardComponent,
+        CellComponent
     ],
     providers: [
         ProfileService,
@@ -76,6 +86,6 @@ import {
             ]
         }
     ],
-    bootstrap: [ JhiMainComponent ]
+    bootstrap: [ JhiMainComponent ],
 })
 export class TppEsirGameserv2AppModule {}
