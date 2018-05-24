@@ -2,46 +2,46 @@ package com.mycompany.myapp.morpion;
 
 public class Main {
     
-	public static void main(String[] args){
-		int size=3;
-		Case[][] table = new Case[size][size];
-		for(int i = 0;i<size;++i){
-			for(int j = 0;j<size;++j){
-				table[i][j]=new Case(i,j);
-			}
-		}
-        BetterMiniMaxAI AI1 = new BetterMiniMaxAI(Fill.o, size);
-        BetterMiniMaxAI AI2 = new BetterMiniMaxAI(Fill.x, size);
-
-		/*GAME LOOP*/
-		while(true){
-			System.out.println(printTable(table));
-
-
-			/*AI 1 TURN*/
-			AI1.chooseCaseToFill(table).fill(AI1.getMyFill());
-
-			System.out.println(printTable(table));
-
-			long time = System.nanoTime();
-			while(System.nanoTime()<time+1000000000) ;//wait 1s
-
-			//detect win
-			if(detectEnd(table)!=0)break;
-
-			/*AI 2 TURN*/
-            AI2.chooseCaseToFill(table).fill(AI2.getMyFill());
-
-			System.out.println(printTable(table));
-
-			time = System.nanoTime();
-			while(System.nanoTime()<time+1000000000);//wait 1s
-
-			//detect win
-			if(detectEnd(table)!=0)break;
-		}
-
-	}
+//	public static void main(String[] args){
+//		int size=3;
+//		Case[][] table = new Case[size][size];
+//		for(int i = 0;i<size;++i){
+//			for(int j = 0;j<size;++j){
+//				table[i][j]=new Case(i,j);
+//			}
+//		}
+//        BetterMiniMaxAI AI1 = new BetterMiniMaxAI(Fill.o, size);
+//        BetterMiniMaxAI AI2 = new BetterMiniMaxAI(Fill.x, size);
+//
+//		/*GAME LOOP*/
+//		while(true){
+//			System.out.println(printTable(table));
+//
+//
+//			/*AI 1 TURN*/
+//			AI1.chooseCaseToFill(table).fill(AI1.getMyFill());
+//
+//			System.out.println(printTable(table));
+//
+//			long time = System.nanoTime();
+//			while(System.nanoTime()<time+1000000000) ;//wait 1s
+//
+//			//detect win
+//			if(detectEnd(table)!=0)break;
+//
+//			/*AI 2 TURN*/
+//            AI2.chooseCaseToFill(table).fill(AI2.getMyFill());
+//
+//			System.out.println(printTable(table));
+//
+//			time = System.nanoTime();
+//			while(System.nanoTime()<time+1000000000);//wait 1s
+//
+//			//detect win
+//			if(detectEnd(table)!=0)break;
+//		}
+//
+//	}
 
 	static int detectEnd(Case[][] table){
 		boolean flagfull = true;
