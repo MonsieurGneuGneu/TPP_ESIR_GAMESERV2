@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class Main {
 
 	public static void main(String[] args) {
-		int size = 6;
+		int size = 5;
 		Case[][] table = new Case[size][size];
 		for (int i = 0; i < size; ++i) {
 			for (int j = 0; j < size; ++j) {
@@ -15,8 +15,8 @@ public class Main {
 			}
 		}
 		/* Initialisation of AI */
-        StupidAI horizontalAI = new StupidAI(Fill.h);
-        StupidAI verticalAI = new StupidAI(Fill.v);
+        LessStupidAI horizontalAI = new LessStupidAI(Fill.h);
+        LessStupidAI verticalAI = new LessStupidAI(Fill.v);
 
 		System.out.println(printTable(table));
 		/* GAME LOOP */
@@ -25,9 +25,9 @@ public class Main {
 
 			
 			/* AI V TURN */
-			table = verticalAI.chooseCaseToFill(table, moveList(table, verticalAI.getMyFill()));
+			table = verticalAI.chooseCaseToFill(table);
 			System.out.println("--Vertical AI--\n"+printTable(table));
-			if (moveList(table, verticalAI.getMyFill()).isEmpty() && moveList(table, horizontalAI.getMyFill()).isEmpty()) {
+			if (verticalAI.moveList(table, verticalAI.getMyFill()).isEmpty() && horizontalAI.moveList(table, horizontalAI.getMyFill()).isEmpty()) {
 				System.out.println("Joueur vertical win");
 				break;
 			}
@@ -36,9 +36,9 @@ public class Main {
 
 
             /* AI H TURN */
-            table = horizontalAI.chooseCaseToFill(table, moveList(table, horizontalAI.getMyFill()));
+            table = horizontalAI.chooseCaseToFill(table);
             System.out.println("--Horizontal AI--\n"+printTable(table));
-            if (moveList(table, verticalAI.getMyFill()).isEmpty() && moveList(table, horizontalAI.getMyFill()).isEmpty()) {
+            if (verticalAI.moveList(table, verticalAI.getMyFill()).isEmpty() && horizontalAI.moveList(table, horizontalAI.getMyFill()).isEmpty()) {
                 System.out.println("Joueur horizontal win");
                 break;
             }
@@ -49,28 +49,9 @@ public class Main {
 
 	}
 
-    static ArrayList moveList(Case[][] table, Fill fill) {
-        ArrayList<Pair<Case, Case>> moves = new ArrayList<>();
-        if(fill==Fill.v){
-            for(int i = 0;i < table.length-1;i++){
-                for(int j = 0;j < table.length;j++){
-                    if(table[i][j].filledBy()==Fill.blank && table[i+1][j].filledBy()==Fill.blank){
-                        moves.add(new Pair<>(table[i][j], table[i+1][j]));
-                    }
-                }
-            }
-        }
-        else{
-            for (Case[] aTable : table) {
-                for (int j = 0; j < table.length - 1; j++) {
-                    if (aTable[j].filledBy() == Fill.blank && aTable[j + 1].filledBy() == Fill.blank) {
-                        moves.add(new Pair<>(aTable[j], aTable[j + 1]));
-                    }
-                }
-            }
-        }
-        return moves;
-    }
+
+
+
 
 
     private static String printTable(Case[][] table) {
