@@ -1,4 +1,4 @@
-package com.mycompany.myapp.morpion;
+package com.mycompany.myapp.web.rest.morpion;
 
 public class Main {
     
