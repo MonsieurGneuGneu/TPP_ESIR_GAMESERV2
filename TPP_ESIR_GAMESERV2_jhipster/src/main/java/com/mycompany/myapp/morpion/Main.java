@@ -1,4 +1,4 @@
-package TicTacToe;
+package com.mycompany.myapp.morpion;
 
 public class Main {
     
