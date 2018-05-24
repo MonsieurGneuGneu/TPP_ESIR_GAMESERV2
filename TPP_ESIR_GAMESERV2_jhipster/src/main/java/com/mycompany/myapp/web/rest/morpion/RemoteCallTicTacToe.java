@@ -50,6 +50,11 @@ public class RemoteCallTicTacToe {
     @PostMapping(value="/morpion/init",produces={"application/JSON"})
     public String init(@RequestParam(value = "startSize", defaultValue = "3") int startSize){
         table = new Case[startSize][startSize];
+        for(int i = 0;i<startSize;++i){
+            for(int j = 0;j<startSize;++j){
+                table[i][j] = new Case(i,j);
+            }
+        }
         AI = new BetterMiniMaxAI(Fill.o, startSize);
         return JSONify(getFills(table));
     }
