@@ -2,7 +2,7 @@ package ia;
 
 import ia.Main.Fill;
 
-public class Case {
+class Case {
 	private int row;
 	private int col;
 	private Fill filledBy;
