@@ -1,3 +1,16 @@
+<<<<<<< HEAD
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>TPP_ESIR_GAMESERV2</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+	</buildSpec>
+	<natures>
+	</natures>
+</projectDescription>
+=======
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
 	<name>TPP_ESIR_GAMESERV2</name>
@@ -15,3 +28,4 @@
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
 </projectDescription>
+>>>>>>> 70695fc49a03da9f9ebd7069cbafc81b666aaf6a
