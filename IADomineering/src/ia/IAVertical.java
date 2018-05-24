@@ -39,28 +39,51 @@ public class IAVertical {
 		return vertical;
 	}
 
+	/**
+	 * Choisis une case a remplir (ici rempli la premiere case vide disponible)
+	 * @param table : la table vertical
+	 * @return la table avec les changements
+	 */
 	public Case[][] chooseCaseToFill(Case[][] table) {
 		for (int i = 0; i < height; i++) {
 			for (int j = 0; j < width; j++) {
 				if (table[i][j].filledBy() == Fill.blank) {
-					table[i][j].fill(Fill.v);
-					if (i > 0) {
-						if (table[i - 1][j].filledBy() != Fill.v) {
-							table[i - 1][j].fill(Fill.x);
-						}
-					}
-					if (i < height - 1) {
-						if (table[i + 1][j].filledBy() != Fill.v) {
-							table[i + 1][j].fill(Fill.x);
-						}
-					}
-					return table;
+					
+					return playHere(table, i, j);
 				}
 			}
 		}
 		return table;
 	}
-
+	
+	/**
+	 * joue a l'endroit indiqué
+	 * @param table : la table (ici vertical)
+	 * @param i : ligne
+	 * @param j : colonne
+	 * @return la table avec les changements
+	 */
+	public Case[][] playHere(Case[][] table, int i, int j) {
+		table[i][j].fill(Fill.v);
+		if (i > 0) {
+			if (table[i - 1][j].filledBy() != Fill.v) {
+				table[i - 1][j].fill(Fill.x);
+			}
+		}
+		if (i < height - 1) {
+			if (table[i + 1][j].filledBy() != Fill.v) {
+				table[i + 1][j].fill(Fill.x);
+			}
+		}
+		return table;
+	}
+	
+	/**
+	 * Verifie si il n'y a plus de place dans la table
+	 * @param table : la table (vertical ici)
+	 * @param size : la taille du plateau de jeu
+	 * @return true si la table est entierement remplie de v ou de x
+	 */
 	public boolean noMoreMove(Case[][] table, int size) {
 		int countNoBlank = 0;
 		for (Case[] aTable : table) {

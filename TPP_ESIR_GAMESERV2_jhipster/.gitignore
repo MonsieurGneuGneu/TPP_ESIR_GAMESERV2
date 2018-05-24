@@ -100,6 +100,7 @@ Desktop.ini
 ######################
 .DS_Store
 .svn
+.java-version
 
 # Thumbnails
 ._*
