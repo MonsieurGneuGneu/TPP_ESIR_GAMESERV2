@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { HttpClient, HttpResponse, HttpHeaders } from '@angular/common/http';
+import { SERVER_API_URL } from '../../app.constants';
+import { CSRFService } from '../../shared/auth/csrf.service';
 
 @Component({
   selector: 'jhi-my-board',
@@ -32,15 +35,19 @@ import { Component } from '@angular/core';
   ]
 })
 export class BoardComponent {
-  private cells: string[] = []; // local table, copy of back
+  private cells: string[] = []; // local table 3*3, copy of back
   private turn: string = 'x';
   private gameover = false;
   private winner = null;
-
+  
+  constructor(private http: HttpClient, private csrfService:CSRFService) {}
+  
   ngOnInit() {
     for (let i = 0; i < 9; i++) {
       this.cells[i] = null;
     }
+
+    this.init();
   }
 
   init() {
@@ -50,16 +57,33 @@ export class BoardComponent {
     this.turn = 'x';
     this.gameover = false;
     this.winner = null;
+    // post request size of board (int)
+
+    let headers = new HttpHeaders().set('Content-Type','application/x-www-form-urlencoded')
+    .set('Accept', 'application/json')
+    .set('Set-Cookie', 'XSRF-TOKEN='+this.csrfService.getCSRF());    
+
+    let httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Set-Cookie' : 'X-CSRF-TOKEN='+this.csrfService.getCSRF()// + '; JSESSIONID='+this.getSessionID()
+    }),
+    };
+
+    this.http.post<any>('http://localhost:8080/' + 'api/morpion/init', httpOptions).subscribe((response) => {
+      if (response){
+        console.log(response);
+      }
+    });
   }
 
   clickHandler(idx: number) {
     console.log(idx);
-    if (!this.gameover) {
+    if (!this.gameover && this.turn =='x') {
       console.log('sth set');
       if (this.cells[idx] === null) {
-        this.cells[idx] = this.turn;
-        this.checkWinner();
-        this.changeTurn();
+        // send post request to back with cell clicked
+        this.clickOnCell(this.cells);
       }
 
     }
@@ -73,31 +97,48 @@ export class BoardComponent {
     }
   }
 
-  checkWinner() {
-    let lines = [
-      [0, 1, 2],
-      [3, 4, 5],
-      [6, 7, 8],
-      [0, 3, 6],
-      [1, 4, 7],
-      [2, 5, 8],
-      [0, 4, 8],
-      [2, 4, 6]
-    ];
-    for (let line of lines) {
-      if (this.cells[line[0]] === this.cells[line[1]] && this.cells[line[1]] === this.cells[line[2]] && this.cells[line[0]] !== null) {
-        this.gameover = true;
-        this.winner = this.cells[line[0]];
-        return;
-      }
+  clickOnCell(cells: string[]){
+        let x;
+        let y;
+
+        cells.forEach((item, index) => {
+          if (item != null) {
+            x = index % 3;
+            y = index / 3;
+          }
+        });
+        let headers = new HttpHeaders().set('Content-Type','application/x-www-form-urlencoded')
+        .set('Accept', 'application/json')
+        .set('Set-Cookie', '<cookie-list>')
+        .set('Set-Cookie', 'X-CSRF-TOKEN='+this.csrfService.getCSRF())
+        .set('Set-Cookie', 'JSESSIONID='+this.getSessionID());
+
+        let httpOptions = {
+          headers: new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Set-Cookie': 'X-CSRF-TOKEN='+this.csrfService.getCSRF() + '; JSESSIONID='+this.getSessionID()
+        }),
+          x: x,
+          y: y
+        };
+        let data = 'x=' +  x +
+        '&y=' + y;
+
+        this.http.post<any>('http://localhost:8080/' + 'api/morpion/play', httpOptions).subscribe((response) => {
+          if (response){
+            console.log(response);
+          }
+        });
     }
 
-    let occupy = 0;
-    this.cells.forEach((e) => { occupy += (e !== null ? 1 : 0) });
-    if (occupy === 9) {
-      console.log('tie');
-      this.gameover = true;
-      this.winner = 'tie';
-    }
+    getSessionID() {
+      var name = "JSESSIONID=";
+      var ca = document.cookie.split(';');
+      for(var i=0; i<ca.length; i++) {
+          var c = ca[i];
+          while (c.charAt(0)==' ') c = c.substring(1);
+          if (c.indexOf(name) !== -1) return c.substring(name.length,c.length);
+      }
+      return "";
   }
 } 
