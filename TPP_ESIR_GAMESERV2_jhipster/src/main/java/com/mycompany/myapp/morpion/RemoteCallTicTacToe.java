@@ -1,12 +1,11 @@
 package com.mycompany.myapp.morpion;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 @RequestMapping("/api/morpion")
 public class RemoteCallTicTacToe {
     
@@ -37,7 +36,7 @@ public class RemoteCallTicTacToe {
             gameState = Main.detectEnd(table);
         }//else do nothing
         
-        return "{\n"+JSONify(getFills(table))+",\n{"+gameState+"}\n}";
+        return "{\nboard:"+JSONify(getFills(table))+",\n{state:"+gameState+"}\n}";
     }
     
     /**
