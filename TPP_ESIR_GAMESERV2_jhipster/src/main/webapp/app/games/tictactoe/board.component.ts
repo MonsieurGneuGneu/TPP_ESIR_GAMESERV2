@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { HttpClient, HttpResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { SERVER_API_URL } from '../../app.constants';
-import { CSRFService } from '../../shared/auth/csrf.service';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
  selector: 'jhi-my-board',
@@ -37,13 +37,14 @@ import { CSRFService } from '../../shared/auth/csrf.service';
 export class BoardComponent {
  private cells: string[] = []; // local table 3*3, copy of back
  private turn: string = 'x';
- private gameover = false;
+ private state: number;
  private winner = null;
+ private startSize: number = 3;
 
- constructor(private http: HttpClient, private csrfService:CSRFService) {}
+ constructor(private http: HttpClient) {}
 
  ngOnInit() {
-   for (let i = 0; i < 9; i++) {
+   for (let i = 0; i < this.startSize * this.startSize; i++) {
      this.cells[i] = null;
    }
 
@@ -51,27 +52,32 @@ export class BoardComponent {
  }
 
  init() {
-   for (let i = 0; i < 9; i++) {
-     this.cells[i] = null;
-   }
-   this.turn = 'x';
-   this.gameover = false;
-   this.winner = null;
-   // post request size of board (int)
-   this.http.post<any>('/api/morpion/init',{}).subscribe((response) => {
-     if (response){
-       console.log(response);
+  let params = new HttpParams()
+          .set('startSize', String(this.startSize));
+
+   // post request to init with posibly size of board
+  this.http.get<any>('/api/morpion/init', { params: params }).subscribe((response) => {
+    if (response){
+      //console.log(response);
+      for (let i = 0; i < this.cells.length; i++) {
+        this.cells[i] = null;
+      }
+      
      }
-   });
+  });
+
+    this.turn = 'x';
+    this.state = 0;
+    this.winner = null;
  }
 
  clickHandler(idx: number) {
-   console.log(idx);
-   if (!this.gameover && this.turn =='x') {
-     console.log('sth set');
+   //console.log(idx);
+   if ((this.state == 0) && this.turn =='x') {
      if (this.cells[idx] === null) {
-       // send post request to back with cell clicked
-       this.clickOnCell(this.cells);
+       // send post request to back end with the cell clicked
+       this.clickOnCell(idx);
+       // this.changeTurn(); // --> I.A's turn in back end
      }
 
    }
@@ -85,25 +91,40 @@ export class BoardComponent {
    }
  }
 
- clickOnCell(cells: string[]){
-       let x;
-       let y;
+ clickOnCell(cell:number) {
+      let params = new HttpParams()
+          .set('x', String(Math.floor(cell/this.startSize)))
+          .set('y', String(cell%this.startSize));
 
-       cells.forEach((item, index) => {
-         if (item != null) {
-           x = index % 3;
-           y = index / 3;
-         }
-       });
+      this.http.get<any>(SERVER_API_URL+'/api/morpion/play', {params: params})
+      .subscribe(response => { 
+        this.state = response.state;
 
-       let data = 'x=' +  x +
-       '&y=' + y;
+        if (this.state == 1) {
+          this.winner = "You";
+        }
+        else if (this.state == 2) {
+          this.winner = "A.I";
+        }
+        else if (this.state == 3) {
+          this.winner = "neither you nor A.I";
+        }
 
-       this.http.post<any>('/api/morpion/play',data).subscribe((response) => {
-         if (response){
-           console.log(response);
-         }
-       });
+        for (let i in response.board) {
+          //console.log("row: "+Number(i));
+          let row = response.board[Number(i)];
+          for (let j in response.board[i]) {
+            //console.log("col: "+Number(j));
+            let cell = response.board[Number(i)][Number(j)];
+            //console.log("cell: "+cell);
+            if (cell != "blank") {
+              let idx = Number(i) * this.startSize + Number(j);
+              this.cells[idx] = cell;
+            }
+          }
+        }
+        //console.log(this.cells);
+        //console.log(response);
+      });
    }
-
 }

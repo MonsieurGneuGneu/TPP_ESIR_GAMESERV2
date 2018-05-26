@@ -1,15 +1,13 @@
 package com.mycompany.myapp.web.rest.morpion;
 
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
+import org.json.JSONObject;
 import com.mycompany.myapp.security.AuthoritiesConstants;
+import java.io.StringWriter;
 
 @RestController
-@Secured(AuthoritiesConstants.ADMIN)
+//@Secured(AuthoritiesConstants.ADMIN)
 @RequestMapping("/api")
 public class RemoteCallTicTacToe {
     
@@ -28,8 +26,8 @@ public class RemoteCallTicTacToe {
      *   2 : player lose
      *   3 : draw
      */
-    @PostMapping(value="/morpion/play",produces={"application/JSON"})
-    public String playerMove(@RequestParam("x") int x,@RequestParam("y") int y){
+    @GetMapping(path="/morpion/play", produces={"application/JSON"})
+    public String playerMove(@RequestParam(value = "x") int x, @RequestParam(value = "y") int y){
         table[x][y].fill(Fill.x);//player fill
         
         int gameState = Main.detectEnd(table);
@@ -39,15 +37,20 @@ public class RemoteCallTicTacToe {
             AI.chooseCaseToFill(table).fill(AI.getMyFill());
             gameState = Main.detectEnd(table);
         }//else do nothing
-        
-        return "{\nboard:"+JSONify(getFills(table))+",\n{state:"+gameState+"}\n}";
+
+        JSONObject obj = new JSONObject();
+        obj.put("board", getFills(table));
+        obj.put("state", gameState);
+
+        return obj.toString();
+        //return "{board: "+JSONify(getFills(table))+", state: "+gameState+"}";
     }
     
     /**
      * @return
      *   the table in a JSON form
      */
-    @PostMapping(value="/morpion/init",produces={"application/JSON"})
+    @GetMapping(path="/morpion/init", produces={"application/JSON"})
     public String init(@RequestParam(value = "startSize", defaultValue = "3") int startSize){
         table = new Case[startSize][startSize];
         for(int i = 0;i<startSize;++i){
@@ -56,7 +59,11 @@ public class RemoteCallTicTacToe {
             }
         }
         AI = new BetterMiniMaxAI(Fill.o, startSize);
-        return JSONify(getFills(table));
+
+        JSONObject obj = new JSONObject();
+        obj.put("board", getFills(table));
+
+        return obj.toString();
     }
     
     /**
