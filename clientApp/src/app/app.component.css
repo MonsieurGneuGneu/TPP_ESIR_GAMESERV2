@@ -1,0 +1,33 @@
+.mat-toolbar {
+  /* This fills the remaining space, by using flexbox.
+     Every toolbar row uses a flexbox row layout. */
+  background-color:#3f51b5 ;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 8px 16px;
+}
+.body{
+  margin-left: 5em;
+  float: left;
+
+}
+
+.details{
+  margin-left: 5em;
+  float: left;
+
+}
+
+.container{
+  margin-right: auto;
+  margin-left: auto;
+
+}
+
+.footer{
+  margin-top: 15em;
+  text-align: center;
+  clear: left;
+
+}
