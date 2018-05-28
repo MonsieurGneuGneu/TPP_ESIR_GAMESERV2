@@ -1,0 +1,8 @@
+.container{
+  border: solid;
+  border-radius: 5px;
+  width: 40em;
+  height: 30em;
+  text-align: center;
+  background-color: indianred;
+}
