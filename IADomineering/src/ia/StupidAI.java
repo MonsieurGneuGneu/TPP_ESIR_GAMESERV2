@@ -1,7 +1,6 @@
 package ia;
 
 import ia.Main.Fill;
-import javafx.util.Pair;
 import java.util.ArrayList;
 
 class StupidAI {

@@ -1,7 +1,5 @@
 package ia;
 
-import javafx.util.Pair;
-
 import java.util.ArrayList;
 
 public class Main {
