@@ -2,7 +2,7 @@ package ia;
 
 import ia.Main.Fill;
 
-public class Case {
+class Case {
 	private int row;
 	private int col;
 	private Fill filledBy;
@@ -28,4 +28,8 @@ public class Case {
 	Fill filledBy() {
 		return filledBy;
 	}
+
+	boolean equals(Case case2){
+	    return(this.row == case2.row && this.col == case2.col());
+    }
 }

@@ -13,4 +13,5 @@ config Java 1.8 : ```jenv exec bash```
 
 ## Lancer le serveur
 optional : ```mvn install```
+
 ```./mvnw```

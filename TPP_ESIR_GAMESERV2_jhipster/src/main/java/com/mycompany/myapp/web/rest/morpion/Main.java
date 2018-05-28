@@ -1,4 +1,4 @@
-package com.mycompany.myapp.morpion;
+package com.mycompany.myapp.web.rest.morpion;
 
 public class Main {
     
@@ -160,7 +160,12 @@ public class Main {
 enum Fill{
 	x,
 	o,
-	blank
+	blank;
+
+    @Override
+	public String toString(){
+	    return this.name();
+	}
 }
 
 class Case{

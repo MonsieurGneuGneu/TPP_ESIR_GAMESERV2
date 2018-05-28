@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SERVER_API_URL } from '../../app.constants';
 
 @Component({
   selector: 'jhi-tictactoe',
