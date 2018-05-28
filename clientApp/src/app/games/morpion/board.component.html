@@ -1,0 +1,13 @@
+<div class=container>
+
+  <div *ngFor="let celll of cells | slice: 0: nbCells; let j = index">
+    <div class="clearfix">
+      <jhi-my-cell *ngFor="let cell of cells | slice: 0: nbCells; let i = index" [value]="i+(j*nbCells)"
+                   (userClick)=clickHandler(i)></jhi-my-cell>
+      <br>
+    </div>
+  </div>
+
+
+</div>
+
