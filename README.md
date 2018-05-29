@@ -17,8 +17,9 @@ L'utilisateur peut se connecter en utilisant le nom d'utilisateur : user ; et le
 Angular-CLI v. 1.7.4
 
 ## Lancer le front
-Dans le dossier TPP_ESIR_GAMESERV2/TPP_ESIR_GAMESERV2jhipser
+Dans le dossier TPP_ESIR_GAMESERV2/TPP_ESIR_GAMESERV2_jhipster
 ecrire la commande suivante dans le terminal :
+
 ```npm start```
 
 # BACK-END
@@ -26,7 +27,7 @@ ecrire la commande suivante dans le terminal :
 config Java 1.8 : ```jenv exec bash```
 
 ## Lancer le serveur
-Dans le dossier TPP_ESIR_GAMESERV2/TPP_ESIR_GAMESERV2jhipser
+Dans le dossier TPP_ESIR_GAMESERV2/TPP_ESIR_GAMESERV2_jhipster
 ecrire les commandes suivante dans le terminal :
 optional : ```mvn install```
 
