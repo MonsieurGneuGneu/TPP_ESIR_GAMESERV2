@@ -100,7 +100,6 @@ class BetterMiniMaxAI {
 
     private int evaluateLine(Case[] line) {
         int score = 0;
-        Fill oppFill = myFill==Fill.o?Fill.x:Fill.o;
 
         for(int i = 0;i < line.length;i++){
             if(line[i].filledBy()==myFill){

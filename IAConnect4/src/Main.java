@@ -21,9 +21,9 @@ public class Main {
 
             System.out.println(printTable(table));
 
-            long time = System.nanoTime();
-//            while (System.nanoTime() < time + 1000000000)
-                ;// wait 1s
+            //long time = System.nanoTime();
+            //while (System.nanoTime() < time + 1000000000)
+            // wait 1s
 
             // detect win
             if (detectEnd(table, c, Fill.o))
@@ -35,9 +35,9 @@ public class Main {
 
             System.out.println(printTable(table));
 
-            time = System.nanoTime();
-//            while (System.nanoTime() < time + 1000000000)
-                ;// wait 1s
+            //time = System.nanoTime();
+            //while (System.nanoTime() < time + 1000000000)
+            //wait 1s
 
             // detect win
             if (detectEnd(table, c, Fill.x))
@@ -220,7 +220,7 @@ public class Main {
      * 
      * @param table
      *            the state of the game
-     * @param row
+     * @param col
      *            the row to check
      * @return -1 if not possible to play on a column, else the minheight in
      *         this column

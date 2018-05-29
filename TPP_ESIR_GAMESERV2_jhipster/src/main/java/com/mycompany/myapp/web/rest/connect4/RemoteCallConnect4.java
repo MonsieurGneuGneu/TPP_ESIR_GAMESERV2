@@ -7,5 +7,4 @@ import org.springframework.web.bind.annotation.RestController;
 //@Secured(AuthoritiesConstants.ADMIN)
 @RequestMapping("/api")
 public class RemoteCallConnect4 {
-    //TODO
 }
