@@ -3,7 +3,7 @@ package com.mycompany.myapp.web.rest.connect4;
 import java.util.ArrayList;
 import java.util.Random;
 
-//public class Main {
+public class Main {
 //    public static void main(String[] args) {
 //        int width = 7;
 //        int height = 6;
