@@ -3,50 +3,50 @@ package com.mycompany.myapp.web.rest.connect4;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Main {
-    public static void main(String[] args) {
-        int width = 7;
-        int height = 6;
-        Case[][] table = new Case[height][width];
-        for (int i = 0; i < height; ++i) {
-            for (int j = 0; j < width; ++j) {
-                table[i][j] = new Case(i, j);
-            }
-        }
-
-        /* GAME LOOP */
-        while (true) {
-
-            /* AI 1 TURN */
-            Case c = chooseCaseToFill(table, Fill.o);
-            c.fill(Fill.o);
-
-            System.out.println(printTable(table));
-
-            long time = System.nanoTime();
-//            while (System.nanoTime() < time + 1000000000)
-                ;// wait 1s
-
-            // detect win
-            if (detectEnd(table, c, Fill.o))
-                break;
-
-            /* AI 2 TURN */
-            c = chooseCaseToFill(table, Fill.x);
-            c.fill(Fill.x);
-
-            System.out.println(printTable(table));
-
-            time = System.nanoTime();
-//            while (System.nanoTime() < time + 1000000000)
-                ;// wait 1s
-
-            // detect win
-            if (detectEnd(table, c, Fill.x))
-                break;
-        }
-
-    }
+//public class Main {
+//    public static void main(String[] args) {
+//        int width = 7;
+//        int height = 6;
+//        Case[][] table = new Case[height][width];
+//        for (int i = 0; i < height; ++i) {
+//            for (int j = 0; j < width; ++j) {
+//                table[i][j] = new Case(i, j);
+//            }
+//        }
+//
+//        /* GAME LOOP */
+//        while (true) {
+//
+//            /* AI 1 TURN */
+//            Case c = chooseCaseToFill(table, Fill.o);
+//            c.fill(Fill.o);
+//
+//            System.out.println(printTable(table));
+//
+//            long time = System.nanoTime();
+////            while (System.nanoTime() < time + 1000000000)
+//                ;// wait 1s
+//
+//            // detect win
+//            if (detectEnd(table, c, Fill.o))
+//                break;
+//
+//            /* AI 2 TURN */
+//            c = chooseCaseToFill(table, Fill.x);
+//            c.fill(Fill.x);
+//
+//            System.out.println(printTable(table));
+//
+//            time = System.nanoTime();
+////            while (System.nanoTime() < time + 1000000000)
+//                ;// wait 1s
+//
+//            // detect win
+//            if (detectEnd(table, c, Fill.x))
+//                break;
+//        }
+//
+//    }
 
     private static boolean isFull(Case[][] table) {
         boolean res = true;

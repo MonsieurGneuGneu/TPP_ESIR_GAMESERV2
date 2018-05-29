@@ -4,48 +4,48 @@ import java.util.ArrayList;
 
 public class Main {
 
-	public static void main(String[] args) {
-		int size = 5;
-		Case[][] table = new Case[size][size];
-		for (int i = 0; i < size; ++i) {
-			for (int j = 0; j < size; ++j) {
-				table[i][j] = new Case(i, j);
-			}
-		}
-		/* Initialisation of AI */
-        LessStupidAI horizontalAI = new LessStupidAI(Fill.h,4);
-        LessStupidAI verticalAI = new LessStupidAI(Fill.v,2);
-
-		System.out.println(printTable(table));
-		/* GAME LOOP */
-		while (true) {
-
-
-			
-			/* AI V TURN */
-			verticalAI.chooseCaseToFill(table);
-			System.out.println("--Vertical AI--\n"+printTable(table));
-			if (verticalAI.moveList(table, verticalAI.getMyFill()).isEmpty() && horizontalAI.moveList(table, horizontalAI.getMyFill()).isEmpty()) {
-				System.out.println("Joueur vertical win");
-				break;
-			}
-			long time = System.nanoTime();
-			while(System.nanoTime()<time+1000000000) ;//wait 1s
-
-
-            /* AI H TURN */
-            horizontalAI.chooseCaseToFill(table);
-            System.out.println("--Horizontal AI--\n"+printTable(table));
-            if (verticalAI.moveList(table, verticalAI.getMyFill()).isEmpty() && horizontalAI.moveList(table, horizontalAI.getMyFill()).isEmpty()) {
-                System.out.println("Joueur horizontal win");
-                break;
-            }
-            time = System.nanoTime();
-            while(System.nanoTime()<time+1000000000) ;//wait 1s
-			
-		}
-
-	}
+//	public static void main(String[] args) {
+//		int size = 5;
+//		Case[][] table = new Case[size][size];
+//		for (int i = 0; i < size; ++i) {
+//			for (int j = 0; j < size; ++j) {
+//				table[i][j] = new Case(i, j);
+//			}
+//		}
+//		/* Initialisation of AI */
+//        LessStupidAI horizontalAI = new LessStupidAI(Fill.h,4);
+//        LessStupidAI verticalAI = new LessStupidAI(Fill.v,2);
+//
+//		System.out.println(printTable(table));
+//		/* GAME LOOP */
+//		while (true) {
+//
+//
+//			
+//			/* AI V TURN */
+//			verticalAI.chooseCaseToFill(table);
+//			System.out.println("--Vertical AI--\n"+printTable(table));
+//			if (verticalAI.moveList(table, verticalAI.getMyFill()).isEmpty() && horizontalAI.moveList(table, horizontalAI.getMyFill()).isEmpty()) {
+//				System.out.println("Joueur vertical win");
+//				break;
+//			}
+//			long time = System.nanoTime();
+//			while(System.nanoTime()<time+1000000000) ;//wait 1s
+//
+//
+//            /* AI H TURN */
+//            horizontalAI.chooseCaseToFill(table);
+//            System.out.println("--Horizontal AI--\n"+printTable(table));
+//            if (verticalAI.moveList(table, verticalAI.getMyFill()).isEmpty() && horizontalAI.moveList(table, horizontalAI.getMyFill()).isEmpty()) {
+//                System.out.println("Joueur horizontal win");
+//                break;
+//            }
+//            time = System.nanoTime();
+//            while(System.nanoTime()<time+1000000000) ;//wait 1s
+//			
+//		}
+//
+//	}
 
 
 
