@@ -3,7 +3,7 @@ package ia;
 import java.util.ArrayList;
 import java.util.Random;
 
-import ia.Main.Fill;
+import com.mycompany.myapp.web.rest.hex.Main.Fill;
 
 public class RandomAI implements AI {
 	private int size;

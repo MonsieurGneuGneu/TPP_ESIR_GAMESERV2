@@ -7,16 +7,26 @@ class Case {
 	private int col;
 	private Fill filledBy;
 	private boolean mark;
+	private Case father;
 	
 	Case(int row, int col) {
 		this.row = row;
 		this.col = col;
 		this.filledBy = Fill.blank;
 		mark = false;
+		father = null;
 	}
 
 	int row() {
 		return row;
+	}
+	
+	void setFather(Case c){
+	    father = c;
+	}
+	
+	Case getFather(){
+	    return father;
 	}
 	
 	void unmark(){
@@ -40,8 +50,4 @@ class Case {
 	Fill filledBy() {
 		return filledBy;
 	}
-
-	boolean equals(Case case2){
-	    return(this.row == case2.row && this.col == case2.col());
-    }
 }
