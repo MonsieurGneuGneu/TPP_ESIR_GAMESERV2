@@ -77,6 +77,7 @@ export class BoarddComponent implements OnInit {
       this.http.get<any>(SERVER_API_URL + '/api/domineering/canPlay', { params: params }).subscribe((response) => {
         if (response){
           console.log(response);
+          
         }
       });
       

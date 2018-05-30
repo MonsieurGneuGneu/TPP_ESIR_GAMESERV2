@@ -1,7 +1,7 @@
 package com.mycompany.myapp.web.rest.domineering;
 
 import java.util.ArrayList;
-
+import java.util.List;
 import org.json.JSONObject;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -55,6 +55,7 @@ public class RemoteCallDomineering {
     public String canPlay(){
         JSONObject obj = new JSONObject();
         int count = 0;
+        List<JSONObject> board = new ArrayList<JSONObject>();
         for(int i = 0;i<table.length;++i){
             for(int j = 0;j<table[0].length;++j){
                 if(table[i][j].filledBy()==Fill.blank){//check if neighbours are blank too
@@ -64,22 +65,22 @@ public class RemoteCallDomineering {
                         objl.put("x2", j);
                         objl.put("y1", i);
                         objl.put("y2", j);
-                        obj.put("possibleMove"+count, objl);
+                        board.add(objl);
                         ++count;
                     }
                     if(i!=table.length-1 && table[i+1][j].filledBy()==Fill.blank){
                         JSONObject objr = new JSONObject();
-                        objr.put("x1",(i));
+                        objr.put("x1",i);
                         objr.put("x2", j);
                         objr.put("y1", i+1);
                         objr.put("y2", j);
-                        obj.put("possibleMove"+count, objr);
+                        board.add(objr);
                         ++count;
                     }
                 }
             }
         }
-
+        obj.put("moves", board);
 
         return obj.toString();
         //return "{board: "+JSONify(getFills(table))+", state: "+gameState+"}";
