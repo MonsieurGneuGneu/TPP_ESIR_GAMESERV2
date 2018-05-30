@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { HttpClient, HttpResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { SERVER_API_URL } from '../../app.constants';
+import { GameinfoService } from '../gameinfo.service';
 
 @Component({
  selector: 'jhi-my-boardttt',
@@ -22,13 +23,14 @@ import { SERVER_API_URL } from '../../app.constants';
  ]
 })
 export class BoardtttComponent {
+ private game: string = "Tic tac toe";
  private cells: string[] = []; // local table startSize&startSize, copy of back
  private turn: string;
  private state: number;
  private winner = null;
  @Input() startSize;
 
- constructor(private http: HttpClient) { }
+ constructor(private http: HttpClient, private gameinfoService: GameinfoService) { }
 
  reload(startSize: number) {
    this.startSize = startSize;
@@ -57,11 +59,9 @@ export class BoardtttComponent {
       
      }
   });
-
+    this.gameinfoService.newGame(this.game);
     this.turn = 'x';
     this.state = 0;
-    this.winner = null;
-
     console.log(this.startSize);
  }
 
@@ -77,8 +77,6 @@ export class BoardtttComponent {
    }
  }
 
-
-
  clickOnCell(cell:number) {
       let params = new HttpParams()
           .set('x', String(Math.floor(cell/this.startSize)))
@@ -87,16 +85,6 @@ export class BoardtttComponent {
       this.http.get<any>(SERVER_API_URL+'/api/morpion/play', {params: params})
       .subscribe(response => { 
         this.state = response.state;
-
-        if (this.state == 1) {
-          this.winner = "You";
-        }
-        else if (this.state == 2) {
-          this.winner = "A.I";
-        }
-        else if (this.state == 3) {
-          this.winner = "neither you nor A.I";
-        }
 
         for (let i in response.board) {
           //console.log("row: "+Number(i));
@@ -111,8 +99,10 @@ export class BoardtttComponent {
             }
           }
         }
-        //console.log(this.cells);
-        //console.log(response);
+
+        if (response.state != 0) {
+          this.gameinfoService.sendInfo(response.state);
+        }
       });
    }
 }

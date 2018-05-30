@@ -1,6 +1,6 @@
 .cell {
-    height: 100px; 
-    width: 100px; 
+    height: 55px; 
+    width: 55px; 
     border-style: solid; 
     border-width: medium; 
     float: left; 
@@ -9,8 +9,8 @@
 }
 
 .v_cell {
-    height: 100px; 
-    width: 100px; 
+    height: 55px; 
+    width: 55px; 
     border-style: solid; 
     border-width: medium; 
     float: left; 
@@ -20,8 +20,8 @@
 }
 
 .h_cell {
-    height: 100px; 
-    width: 100px; 
+    height: 55px; 
+    width: 55px; 
     border-style: solid; 
     border-width: medium; 
     float: left; 

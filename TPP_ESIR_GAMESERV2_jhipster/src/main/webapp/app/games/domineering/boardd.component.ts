@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { HttpClient, HttpResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { SERVER_API_URL } from '../../app.constants';
+import { GameinfoService } from '../gameinfo.service';
 
 @Component({
   selector: 'jhi-boardd',
@@ -21,14 +22,15 @@ import { SERVER_API_URL } from '../../app.constants';
  `]
 })
 export class BoarddComponent implements OnInit {
-  @Input() startSize;
+  @Input() startSize: number;
+  private game = "Domineering";
   private difficulty: number = 4;
   private cells: string[] = []; // local table startSize&startSize, copy of back
   private turn: string;
   private state: number;
-  private winner = null;
+  private firstClick: number;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private gameinfoService: GameinfoService) { }
 
  reload(startSize: number) {
    this.startSize = startSize;
@@ -44,6 +46,8 @@ export class BoarddComponent implements OnInit {
  }
 
  init() {
+    this.difficulty = this.gameinfoService.getDifficulty();
+
     let params = new HttpParams()
             .set('startSize', String(this.startSize))
             .set('difficulty',String(this.difficulty));
@@ -58,52 +62,62 @@ export class BoarddComponent implements OnInit {
         
       }
     });
-    console.log(this.cells);
-
+    this.gameinfoService.newGame(this.game);
     this.turn = 'v';
     this.state = 0;
-    this.winner = null;
   }
-  
+
   clickHandler(idx: number) {
     console.log(idx);
     if ((this.state == 0) && this.turn =='v') {
-      // playable?
-      let params = new HttpParams()
-            .set('startSize', String(this.startSize))
-            .set('difficulty',String(this.difficulty));
+      // verfify if first cell clicked
+      if (this.firstClick != null) {
+        // playable?
+        // ask the good moves
+        this.http.get<any>(SERVER_API_URL + '/api/domineering/canPlay').subscribe((response) => {
+          if (response){
+            console.log(response);
+            let x1 = Math.floor(this.firstClick/this.startSize);
+            let y1 = this.firstClick%this.startSize;
+            // console.log("firstclick: ",x1, y1);
+            let x2 = Math.floor(idx/this.startSize);
+            let y2 = idx%this.startSize;
+            // console.log("secondclick: ",x2, y2);
 
-      // post request to init with posibly size of board
-      this.http.get<any>(SERVER_API_URL + '/api/domineering/canPlay', { params: params }).subscribe((response) => {
-        if (response){
-          console.log(response);
-          
-        }
-      });
-      
-      //this.clickOnCell(idx);
+            // check if good move
+            for (let i in response.moves) {
+              let move = response.moves[i];
+              // console.log("move1: ",move.x1, move.y1);
+              // console.log("move2: ", move.x2, move.y2);
+              // good move (not depending of which cell was clicked first)
+              if((x1 == move.x1) && (y1 == move.y1) && (x2 == move.x2) && (y2 == move.y2) ||
+                        (x2 == move.x1) && (y2 == move.y1) && (x1 == move.x2) && (y1 == move.y2)){
+                console.log("good move!");
+                this.clickOnCell(x1, y1, x2, y2);
+                break;
+              }
+            }
+            // reinitalise firstClick either if good or bad move
+            this.firstClick = null;
+          }
+        });  
+      } else {
+        this.firstClick = idx;
+      }
     }
   }
  
-  clickOnCell(cell:number) {
+  clickOnCell(x1:number, y1:number, x2:number, y2:number) {
        let params = new HttpParams()
-           .set('x', String(Math.floor(cell/this.startSize)))
-           .set('y', String(cell%this.startSize));
+           .set('x1', String(x1))
+           .set('y1', String(y1))
+           .set('x2', String(x2))
+           .set('y2', String(y2));
  
-       this.http.get<any>(SERVER_API_URL+'/api/morpion/play', {params: params})
+       this.http.get<any>(SERVER_API_URL+'/api/domineering/play', {params: params})
        .subscribe(response => { 
-         this.state = response.state;
- 
-         if (this.state == 1) {
-           this.winner = "You";
-         }
-         else if (this.state == 2) {
-           this.winner = "A.I";
-         }
-         else if (this.state == 3) {
-           this.winner = "neither you nor A.I";
-         }
- 
+        this.state = response.state;
+        // display new board
          for (let i in response.board) {
            //console.log("row: "+Number(i));
            let row = response.board[Number(i)];
@@ -117,8 +131,11 @@ export class BoarddComponent implements OnInit {
              }
            }
          }
-         //console.log(this.cells);
-         //console.log(response);
+
+         // refresh score
+         if (response.state != 0) {
+          this.gameinfoService.sendInfo(response.state);
+         }
        });
     }
 

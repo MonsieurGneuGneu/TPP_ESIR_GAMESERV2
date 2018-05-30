@@ -1,29 +1,27 @@
 <div class="container">
-    <h2 style="text-align: center;"> {{game}} </h2>
+    <h2 style="text-align: center;"> {{gameinfoService.getGame()}} </h2>
 
     <form style="text-align: center">
       <label for="difficulty">Desired difficulty:</label>
-      <select class="form-control" id="difficulty">
+      <select class="form-control" [(ngModel)]="difficulty" (change)="changeDifficulty()">
         <option value="easy">Easy</option>
         <option value="medium">Medium</option>
         <option value="hard">Hard</option>
+        <option value="very-hard">Ouch!</option>
+        <option value="very-very-hard">Are you serious?!</option>
+
       </select>
     </form>
 
       <h2 style="text-align: center"> Score : </h2>
       <tr style="font-weight: bold;">
-        <td> You </td>
+        <td> Player </td>
         <td> Draw </td>
         <td> A.I  </td>
       </tr>
       <tr style="font-weight: bolder; font-size: 2em;">
-        <td>0</td>
-        <td>0</td>
-        <td>0</td>
-      </tr>
-      
-      <div>
-        <a href="#" class="btn btn-primary">Play again</a>
-      </div>
-      
+        <td>{{gameinfoService.getScorePlayer()}}</td>
+        <td>{{gameinfoService.getScoreDraw()}}</td>
+        <td>{{gameinfoService.getScoreAI()}}</td>
+      </tr>      
 </div>

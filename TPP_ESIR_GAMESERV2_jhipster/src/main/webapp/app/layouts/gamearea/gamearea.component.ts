@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GameinfoService } from '../../games/gameinfo.service';
 
 @Component({
   selector: 'jhi-gamearea',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GameareaComponent implements OnInit {
 
-  constructor() { }
+  constructor(private gameinfoService: GameinfoService) { }
 
   ngOnInit() {
   }
