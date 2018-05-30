@@ -5,51 +5,51 @@ import java.util.function.Predicate;
 
 public class Main {
 
-    public static void main(String[] args) {
-        int size = 4;
-        Case[][] table = new Case[size][size];
-        for (int i = 0; i < size; ++i) {
-            for (int j = 0; j < size; ++j) {
-                table[i][j] = new Case(i, j);
-            }
-        }
+    // public static void main(String[] args) {
+    //     int size = 4;
+    //     Case[][] table = new Case[size][size];
+    //     for (int i = 0; i < size; ++i) {
+    //         for (int j = 0; j < size; ++j) {
+    //             table[i][j] = new Case(i, j);
+    //         }
+    //     }
 
-        // Le rouge essaye de lier une colonne
-        // Le bleu essaye de lier une ligne
+    //     // Le rouge essaye de lier une colonne
+    //     // Le bleu essaye de lier une ligne
 
-        /* Initialisation of AI */
-        AI redAI = new RandomAI(size, Fill.r);
-        AI blueAI = new RandomAI(size, Fill.b);
+    //     /* Initialisation of AI */
+    //     AI redAI = new RandomAI(size, Fill.r);
+    //     AI blueAI = new RandomAI(size, Fill.b);
 
-        System.out.println(printTable(table));
-        /* GAME LOOP */
-        while (true) {
-            /* blueAI TURN */
-            Case c = blueAI.chooseCaseToFill(table);
-            System.out.println(printTable(table));
-            if (detectEnd(table, c, true) == 1) {
-                System.out.println("Blue Player win");
-                break;
-            }
+    //     System.out.println(printTable(table));
+    //     /* GAME LOOP */
+    //     while (true) {
+    //         /* blueAI TURN */
+    //         Case c = blueAI.chooseCaseToFill(table);
+    //         System.out.println(printTable(table));
+    //         if (detectEnd(table, c, true) == 1) {
+    //             System.out.println("Blue Player win");
+    //             break;
+    //         }
 
-            long time = System.nanoTime();
-            while (System.nanoTime() < time + 1000000000)
-                ;// wait 1s
+    //         long time = System.nanoTime();
+    //         while (System.nanoTime() < time + 1000000000)
+    //             ;// wait 1s
 
-            /* redAI TURN */
-            c = redAI.chooseCaseToFill(table);
-            System.out.println(printTable(table));
-            if (detectEnd(table, c, false) == 2) {
-                System.out.println("Red Player win");
-                break;
-            }
-            time = System.nanoTime();
-            while (System.nanoTime() < time + 1000000000)
-                ;// wait 1s
+    //         /* redAI TURN */
+    //         c = redAI.chooseCaseToFill(table);
+    //         System.out.println(printTable(table));
+    //         if (detectEnd(table, c, false) == 2) {
+    //             System.out.println("Red Player win");
+    //             break;
+    //         }
+    //         time = System.nanoTime();
+    //         while (System.nanoTime() < time + 1000000000)
+    //             ;// wait 1s
 
-        }
+    //     }
 
-    }
+    // }
 
     /**
      * A case(n,n)'s neighbors are : n-1,n-1 n-1,n n,n-1 n,n+1 n+1,n n+1,n+1

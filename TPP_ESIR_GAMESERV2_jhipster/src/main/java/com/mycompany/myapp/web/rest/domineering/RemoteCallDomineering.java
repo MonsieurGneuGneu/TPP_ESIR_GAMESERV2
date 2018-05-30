@@ -59,11 +59,21 @@ public class RemoteCallDomineering {
             for(int j = 0;j<table[0].length;++j){
                 if(table[i][j].filledBy()==Fill.blank){//check if neighbours are blank too
                     if(i!=0 && table[i-1][j].filledBy()==Fill.blank){
-                        obj.put("possibleMove"+count, "x1="+(i-1)+",y1="+j+"x2="+i+",y2="+j);
+                        JSONObject objl = new JSONObject();
+                        objl.put("x1",(i-1));
+                        objl.put("x2", j);
+                        objl.put("y1", i);
+                        objl.put("y2", j);
+                        obj.put("possibleMove"+count, objl);
                         ++count;
                     }
                     if(i!=table.length-1 && table[i+1][j].filledBy()==Fill.blank){
-                        obj.put("possibleMove"+count, "x1="+i+",y1="+j+"x2="+(i+1)+",y2="+j);
+                        JSONObject objr = new JSONObject();
+                        objr.put("x1",(i));
+                        objr.put("x2", j);
+                        objr.put("y1", i+1);
+                        objr.put("y2", j);
+                        obj.put("possibleMove"+count, objr);
                         ++count;
                     }
                 }

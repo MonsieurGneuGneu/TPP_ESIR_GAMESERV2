@@ -17,6 +17,7 @@ import { TppEsirGameserv2AccountModule } from './account/account.module';
 import { TppEsirGameserv2EntityModule } from './entities/entity.module';
 import { PaginationConfig } from './blocks/config/uib-pagination.config';
 import { StateStorageService } from './shared/auth/state-storage.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
 import {
     JhiMainComponent,
@@ -25,17 +26,25 @@ import {
     ProfileService,
     PageRibbonComponent,
     ErrorComponent,
-    GamesbarComponent
+    GamesbarComponent,
+    FooterdetailsComponent,
+    GamedetailsComponent,
+    GameareaComponent
 } from './layouts';
-import { 
+import {
     TictactoeComponent,
-    BoardComponent,
-    CellComponent
+    BoardtttComponent,
+    CelltttComponent,
+    DomineeringComponent,
+    BoarddComponent,
+    CelldComponent
  } from './games';
 
 @NgModule({
     imports: [
         BrowserModule,
+        FormsModule,
+        ReactiveFormsModule,
         TppEsirGameserv2AppRoutingModule,
         Ng2Webstorage.forRoot({ prefix: 'jhi', separator: '-'}),
         TppEsirGameserv2SharedModule,
@@ -53,8 +62,14 @@ import {
         FooterComponent,
         GamesbarComponent,
         TictactoeComponent,
-        BoardComponent,
-        CellComponent
+        BoardtttComponent,
+        CelltttComponent,
+        FooterdetailsComponent,
+        GamedetailsComponent,
+        GameareaComponent,
+        DomineeringComponent,
+        BoarddComponent,
+        CelldComponent
     ],
     providers: [
         ProfileService,

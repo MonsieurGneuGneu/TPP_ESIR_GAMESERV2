@@ -1,16 +1,14 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { SERVER_API_URL } from '../../app.constants';
-import { BoardtttComponent } from '..';
-
+import { BoarddComponent } from '..';
 @Component({
-  selector: 'jhi-tictactoe',
-  templateUrl: './tictactoe.component.html',
+  selector: 'jhi-domineering',
+  templateUrl: './domineering.component.html',
   styles: ['.game { margin: auto; max-width: 450px; max-height: 450px;}']
 })
-export class TictactoeComponent implements OnInit {
+export class DomineeringComponent implements OnInit {
   @Input() startSize = 0;
   @ViewChild('board') 
-  private boardComponent: BoardtttComponent;
+  private boardComponent: BoarddComponent;
 
   constructor() { }
 

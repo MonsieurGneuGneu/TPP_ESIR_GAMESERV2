@@ -1,0 +1,13 @@
+.container{
+  border: solid;
+  border-radius: 5px;
+  width: 20em;
+  height: 35em;
+  background-color: cadetblue;
+}
+
+tr,td {
+  padding: 1em;
+  text-align: center;
+  width: 250px;
+}

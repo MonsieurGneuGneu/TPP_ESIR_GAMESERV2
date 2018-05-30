@@ -1,0 +1,31 @@
+.cell {
+    height: 100px; 
+    width: 100px; 
+    border-style: solid; 
+    border-width: medium; 
+    float: left; 
+    margin: 0 4px 4px 0;
+    border-color: black;
+}
+
+.v_cell {
+    height: 100px; 
+    width: 100px; 
+    border-style: solid; 
+    border-width: medium; 
+    float: left; 
+    margin: 0 4px 4px 0; 
+    border-color: black;
+    background-color: crimson
+}
+
+.h_cell {
+    height: 100px; 
+    width: 100px; 
+    border-style: solid; 
+    border-width: medium; 
+    float: left; 
+    margin: 0 4px 4px 0; 
+    border-color: black;
+    background-color: dodgerblue
+}

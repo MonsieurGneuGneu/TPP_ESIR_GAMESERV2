@@ -6,10 +6,14 @@
     <div class="card jh-card">
         <router-outlet></router-outlet>
         <router-outlet name="popup"></router-outlet>
-        <jhi-tictactoe></jhi-tictactoe>
+        <div class="row">
+            <div class="col-sm">
+                <jhi-gamearea></jhi-gamearea>
+            </div>
+            <div class="col-sm">
+                <jhi-gamedetails></jhi-gamedetails>
+            </div>
+        </div>
     </div>
 </div>
-
-<jhi-gamesbar></jhi-gamesbar>
-<jhi-footer></jhi-footer>
-
+<jhi-footerdetails></jhi-footerdetails>

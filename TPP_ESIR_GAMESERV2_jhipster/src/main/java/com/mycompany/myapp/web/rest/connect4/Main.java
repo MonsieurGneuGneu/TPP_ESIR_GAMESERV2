@@ -4,51 +4,6 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Main {
-<<<<<<< HEAD
-    public static void main(String[] args) {
-        int width = 7;
-        int height = 6;
-        Case[][] table = new Case[height][width];
-        for (int i = 0; i < height; ++i) {
-            for (int j = 0; j < width; ++j) {
-                table[i][j] = new Case(i, j);
-            }
-        }
-
-        AI ai = new AI(Fill.o, 3);
-        AI ai2 = new AI(Fill.x, 3);
-        /* GAME LOOP */
-        while (true) {
-
-            /* AI 1 TURN */
-            Case c = ai.chooseCaseToFill(table);
-
-            System.out.println(printTable(table));
-
-            //long time = System.nanoTime();
-//            while (System.nanoTime() < time + 1000000000)
-                // wait 1s
-
-            // detect win
-            if (detectEnd(table, c, Fill.o))
-                break;
-
-            /* AI 2 TURN */
-            c = ai2.chooseCaseToFill(table);
-
-            System.out.println(printTable(table));
-
-            //time = System.nanoTime();
-//            while (System.nanoTime() < time + 1000000000)
-                // wait 1s
-
-            // detect win
-            if (detectEnd(table, c, Fill.x))
-                break;
-        }
-
-    }
-=======
 //    public static void main(String[] args) {
 //        int width = 7;
 //        int height = 6;
@@ -92,7 +47,6 @@ public class Main {
 //        }
 //
 //    }
->>>>>>> 4e289597ec8e5d875964083d5ce571a3e5070bfa
 
     private static boolean isFull(Case[][] table) {
         boolean res = true;

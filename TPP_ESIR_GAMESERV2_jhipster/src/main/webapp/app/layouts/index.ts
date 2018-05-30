@@ -8,3 +8,6 @@ export * from './profiles/page-ribbon.component';
 export * from './profiles/profile.service';
 export * from './profiles/profile-info.model';
 export * from './gamesbar/gamesbar.component';
+export * from './footerdetails/footerdetails.component';
+export * from './gamedetails/gamedetails.component'
+export * from './gamearea/gamearea.component';

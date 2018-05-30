@@ -1,0 +1,9 @@
+.container{
+    border: solid;
+    border-radius: 5px;
+    width: 50em;
+    height: 35em;
+    text-align: center;
+    background-color: cadetblue;
+  }
+  

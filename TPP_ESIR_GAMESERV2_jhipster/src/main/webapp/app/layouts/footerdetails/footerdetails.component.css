@@ -1,0 +1,31 @@
+.container{
+  position: fixed;
+  border: solid;
+  border-radius: 5px;
+
+}
+
+.card-img-top{
+  width: 15em;
+  height: 15em;
+}
+
+.page-footer{
+  background-color: #353d47;
+}
+
+.game{
+  float: left;
+  width: 15em;
+  margin-left: 5em;
+  margin-top: 3em;
+}
+
+.row{
+  margin: auto; 
+  max-width: 1000px;
+}
+
+button{
+  margin-bottom: 1em;
+}

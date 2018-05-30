@@ -1,0 +1,33 @@
+<div *ngIf="startSize==3" class=container>
+    <div class="clearfix">
+        <jhi-my-cellttt *ngFor="let cell of cells | slice: 0: 3; let i = index" [value]="cell" (userClick)=clickHandler(i)></jhi-my-cellttt><br>
+    </div>
+              
+    <div class="clearfix">
+        <jhi-my-cellttt *ngFor="let cell of cells | slice: 3: 6; let i = index" [value]="cell" (userClick)=clickHandler(i+3)></jhi-my-cellttt><br>
+    </div>
+    
+    <div class="clearfix">
+        <jhi-my-cellttt *ngFor="let cell of cells | slice: 6: 9; let i = index" [value]="cell" (userClick)=clickHandler(i+6)></jhi-my-cellttt><br>
+    </div>
+</div>
+
+<div *ngIf="startSize==4" class=container>
+    <div class="clearfix">
+        <jhi-my-cellttt *ngFor="let cell of cells | slice: 0: 4; let i = index" [value]="cell" (userClick)=clickHandler(i)></jhi-my-cellttt><br>
+    </div>
+              
+    <div class="clearfix">
+        <jhi-my-cellttt *ngFor="let cell of cells | slice: 4: 8; let i = index" [value]="cell" (userClick)=clickHandler(i+4)></jhi-my-cellttt><br>
+    </div>
+    
+    <div class="clearfix">
+        <jhi-my-cellttt *ngFor="let cell of cells | slice: 8: 12; let i = index" [value]="cell" (userClick)=clickHandler(i+8)></jhi-my-cellttt><br>
+    </div>
+
+    <div class="clearfix">
+        <jhi-my-cellttt *ngFor="let cell of cells | slice: 12: 16; let i = index" [value]="cell" (userClick)=clickHandler(i+12)></jhi-my-cellttt><br>
+    </div>
+</div>
+
+      
