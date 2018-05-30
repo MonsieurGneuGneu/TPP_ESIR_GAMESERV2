@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-// import { TictactoeComponent } from '../../games'
+import { GameinfoService } from '../../games/gameinfo.service';
 
 @Component({
   selector: 'jhi-gamedetails',
@@ -7,12 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./gamedetails.component.css']
 })
 export class GamedetailsComponent implements OnInit {
-  game: string;
-  constructor() { }
+  private difficulty: string;
+
+  constructor(private gameinfoService: GameinfoService) { }
 
   ngOnInit() {
-    this.game = "Tic tac toe";
   }
 
-  
+  changeDifficulty() {
+    this.gameinfoService
+  }
 }

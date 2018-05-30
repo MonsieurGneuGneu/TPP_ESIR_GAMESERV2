@@ -4,3 +4,4 @@ export * from './tictactoe/tictactoe.component';
 export * from './domineering/domineering.component';
 export * from './domineering/boardd.component';
 export * from './domineering/celld.component';
+export * from './gameinfo.service';

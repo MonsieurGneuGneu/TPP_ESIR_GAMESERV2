@@ -37,7 +37,8 @@ import {
     CelltttComponent,
     DomineeringComponent,
     BoarddComponent,
-    CelldComponent
+    CelldComponent,
+    GameinfoService
  } from './games';
 
 @NgModule({
@@ -100,6 +101,7 @@ import {
                 Injector
             ]
         },
+        GameinfoService
     ],
     bootstrap: [ JhiMainComponent ],
 })

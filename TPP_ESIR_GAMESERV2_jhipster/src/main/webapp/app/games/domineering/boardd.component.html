@@ -29,4 +29,82 @@
             <jhi-celld *ngFor="let cell of cells | slice: 12: 16; let i = index" [value]="cell" (userClick)=clickHandler(i+12)></jhi-celld><br>
         </div>
     </div>
+
+    <div *ngIf="startSize==5" class=container>
+        <div class="clearfix">
+            <jhi-celld *ngFor="let cell of cells | slice: 0: 5; let i = index" [value]="cell" (userClick)=clickHandler(i)></jhi-celld><br>
+        </div>
+                      
+        <div class="clearfix">
+            <jhi-celld *ngFor="let cell of cells | slice: 5: 10; let i = index" [value]="cell" (userClick)=clickHandler(i+5)></jhi-celld><br>
+        </div>
+            
+        <div class="clearfix">
+            <jhi-celld *ngFor="let cell of cells | slice: 10: 15; let i = index" [value]="cell" (userClick)=clickHandler(i+10)></jhi-celld><br>
+        </div>
+        
+        <div class="clearfix">
+            <jhi-celld *ngFor="let cell of cells | slice: 15: 20; let i = index" [value]="cell" (userClick)=clickHandler(i+15)></jhi-celld><br>
+        </div>
+
+        <div class="clearfix">
+            <jhi-celld *ngFor="let cell of cells | slice: 20: 25; let i = index" [value]="cell" (userClick)=clickHandler(i+20)></jhi-celld><br>
+        </div>
+    </div>
+
+    <div *ngIf="startSize==6" class=container>
+            <div class="clearfix">
+                <jhi-celld *ngFor="let cell of cells | slice: 0: 6; let i = index" [value]="cell" (userClick)=clickHandler(i)></jhi-celld><br>
+            </div>
+                          
+            <div class="clearfix">
+                <jhi-celld *ngFor="let cell of cells | slice: 6: 12; let i = index" [value]="cell" (userClick)=clickHandler(i+6)></jhi-celld><br>
+            </div>
+                
+            <div class="clearfix">
+                <jhi-celld *ngFor="let cell of cells | slice: 12: 18; let i = index" [value]="cell" (userClick)=clickHandler(i+12)></jhi-celld><br>
+            </div>
+            
+            <div class="clearfix">
+                <jhi-celld *ngFor="let cell of cells | slice: 18: 24; let i = index" [value]="cell" (userClick)=clickHandler(i+18)></jhi-celld><br>
+            </div>
+    
+            <div class="clearfix">
+                <jhi-celld *ngFor="let cell of cells | slice: 24: 30; let i = index" [value]="cell" (userClick)=clickHandler(i+24)></jhi-celld><br>
+            </div>
+                
+            <div class="clearfix">
+                <jhi-celld *ngFor="let cell of cells | slice: 30: 36; let i = index" [value]="cell" (userClick)=clickHandler(i+30)></jhi-celld><br>
+            </div>
+    </div>
+
+    <div *ngIf="startSize==7" class=container>
+            <div class="clearfix">
+                <jhi-celld *ngFor="let cell of cells | slice: 0: 7; let i = index" [value]="cell" (userClick)=clickHandler(i)></jhi-celld><br>
+            </div>
+                          
+            <div class="clearfix">
+                <jhi-celld *ngFor="let cell of cells | slice: 7: 14; let i = index" [value]="cell" (userClick)=clickHandler(i+7)></jhi-celld><br>
+            </div>
+                
+            <div class="clearfix">
+                <jhi-celld *ngFor="let cell of cells | slice: 14: 21; let i = index" [value]="cell" (userClick)=clickHandler(i+14)></jhi-celld><br>
+            </div>
+            
+            <div class="clearfix">
+                <jhi-celld *ngFor="let cell of cells | slice: 21: 28; let i = index" [value]="cell" (userClick)=clickHandler(i+21)></jhi-celld><br>
+            </div>
+    
+            <div class="clearfix">
+                <jhi-celld *ngFor="let cell of cells | slice: 28: 35; let i = index" [value]="cell" (userClick)=clickHandler(i+28)></jhi-celld><br>
+            </div>
+                
+            <div class="clearfix">
+                <jhi-celld *ngFor="let cell of cells | slice: 35: 42; let i = index" [value]="cell" (userClick)=clickHandler(i+35)></jhi-celld><br>
+            </div>
+
+            <div class="clearfix">
+                <jhi-celld *ngFor="let cell of cells | slice: 42: 49; let i = index" [value]="cell" (userClick)=clickHandler(i+42)></jhi-celld><br>
+            </div>
+    </div>
        

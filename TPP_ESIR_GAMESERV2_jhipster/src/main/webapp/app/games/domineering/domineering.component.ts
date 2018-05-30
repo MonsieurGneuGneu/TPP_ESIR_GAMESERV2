@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { BoarddComponent } from '..';
+
 @Component({
   selector: 'jhi-domineering',
   templateUrl: './domineering.component.html',

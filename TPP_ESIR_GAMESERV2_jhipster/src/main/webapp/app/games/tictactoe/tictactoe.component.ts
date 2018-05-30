@@ -5,7 +5,7 @@ import { BoardtttComponent } from '..';
 @Component({
   selector: 'jhi-tictactoe',
   templateUrl: './tictactoe.component.html',
-  styles: ['.game { margin: auto; max-width: 450px; max-height: 450px;}']
+  styles: ['.game { margin: auto; max-width: 500px; max-height: 500px;}']
 })
 export class TictactoeComponent implements OnInit {
   @Input() startSize = 0;
