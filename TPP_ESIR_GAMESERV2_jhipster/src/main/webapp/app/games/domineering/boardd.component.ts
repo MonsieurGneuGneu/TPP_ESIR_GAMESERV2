@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { HttpClient, HttpResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { SERVER_API_URL } from '../../app.constants';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'jhi-boardd',
@@ -27,6 +28,7 @@ export class BoarddComponent implements OnInit {
   private turn: string;
   private state: number;
   private winner = null;
+  private firstClick: number;
 
   constructor(private http: HttpClient) { }
 
@@ -65,32 +67,54 @@ export class BoarddComponent implements OnInit {
     this.winner = null;
   }
   
+  goodMove(x1, y1, x2, y2, move): boolean {
+    return (x1 == move.x1) && (y1 == move.y1) && (x2 == move.x2) && (y2 == move.y2);
+  }
+
   clickHandler(idx: number) {
     console.log(idx);
     if ((this.state == 0) && this.turn =='v') {
-      // playable?
-      let params = new HttpParams()
-            .set('startSize', String(this.startSize))
-            .set('difficulty',String(this.difficulty));
+      // verfify if first cell clicked
+      if (this.firstClick) {
+        // playable?
+        // get possible moves
+        this.http.get<any>(SERVER_API_URL + '/api/domineering/canPlay').subscribe((response) => {
+          if (response){
+            console.log(response);
+            let x1 = this.firstClick/this.startSize;
+            let y1 = this.firstClick%this.startSize;
+            let x2 = idx/this.startSize;
+            let y2 = idx%this.startSize;
 
-      // post request to init with posibly size of board
-      this.http.get<any>(SERVER_API_URL + '/api/domineering/canPlay', { params: params }).subscribe((response) => {
-        if (response){
-          console.log(response);
-          
-        }
-      });
+            for (let i in response.moves) {
+              let move = response.moves[i];
+              if(this.goodMove(x1, y1, x1, y2, move)){
+                console.log("good move!");
+                this.clickOnCell(x1, y1, x2, y2);
+                this.firstClick = null;
+              }
+            }
+          }
+        });  
+      }
+
+      else {
+        this.firstClick = idx;
+      }
+      
       
       //this.clickOnCell(idx);
     }
   }
  
-  clickOnCell(cell:number) {
+  clickOnCell(x1:number, y1:number, x2:number, y2:number) {
        let params = new HttpParams()
-           .set('x', String(Math.floor(cell/this.startSize)))
-           .set('y', String(cell%this.startSize));
+           .set('x1', String(x1))
+           .set('y2', String(y2))
+           .set('x1', String(x2))
+           .set('y2', String(y2));
  
-       this.http.get<any>(SERVER_API_URL+'/api/morpion/play', {params: params})
+       this.http.get<any>(SERVER_API_URL+'/api/domineering/play', {params: params})
        .subscribe(response => { 
          this.state = response.state;
  
@@ -99,9 +123,6 @@ export class BoarddComponent implements OnInit {
          }
          else if (this.state == 2) {
            this.winner = "A.I";
-         }
-         else if (this.state == 3) {
-           this.winner = "neither you nor A.I";
          }
  
          for (let i in response.board) {

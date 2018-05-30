@@ -62,8 +62,8 @@ public class RemoteCallDomineering {
                     if(i!=0 && table[i-1][j].filledBy()==Fill.blank){
                         JSONObject objl = new JSONObject();
                         objl.put("x1",(i-1));
-                        objl.put("x2", j);
-                        objl.put("y1", i);
+                        objl.put("y1", j);
+                        objl.put("x2", i);
                         objl.put("y2", j);
                         board.add(objl);
                         ++count;
@@ -71,8 +71,8 @@ public class RemoteCallDomineering {
                     if(i!=table.length-1 && table[i+1][j].filledBy()==Fill.blank){
                         JSONObject objr = new JSONObject();
                         objr.put("x1",i);
-                        objr.put("x2", j);
-                        objr.put("y1", i+1);
+                        objr.put("y1", j);
+                        objr.put("x2", i+1);
                         objr.put("y2", j);
                         board.add(objr);
                         ++count;
