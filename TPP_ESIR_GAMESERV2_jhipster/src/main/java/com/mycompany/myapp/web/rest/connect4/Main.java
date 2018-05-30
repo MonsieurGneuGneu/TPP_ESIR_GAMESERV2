@@ -71,10 +71,10 @@ public class Main {
      * 2 : player lose
      * 3 : draw
      */
-    private static boolean detectEnd(Case[][] table, Case lastpos, Fill player) {
+    static int detectEnd(Case[][] table, Case lastpos, Fill player) {
         if (isFull(table)) {
             System.out.println("no winner!");
-            return false;
+            return 3;//XXX maybe it is possible that the last move is a winning one?
         }
 
         int count = 0;
@@ -88,7 +88,12 @@ public class Main {
 
             if (count >= 4) {
                 System.out.println(player + " won!");
-                return true;
+                if(player==Fill.x) {//AI
+                	
+                	return 2;
+                }else {
+                	return 1;
+                }
             }
         }
 
@@ -103,7 +108,12 @@ public class Main {
 
             if (count >= 4) {
                 System.out.println(player + " won!");
-                return true;
+                if(player==Fill.x) {//AI
+                	
+                	return 2;
+                }else {
+                	return 1;
+                }
             }
         }
 
@@ -119,7 +129,12 @@ public class Main {
                     count++;
                     if (count >= 4) {
                         System.out.println(player + " won!");
-                        return true;
+                        if(player==Fill.x) {//AI
+                        	
+                        	return 2;
+                        }else {
+                        	return 1;
+                        }
                     }
                 } else {
                     count = 0;
@@ -138,7 +153,12 @@ public class Main {
                     count++;
                     if (count >= 4) {
                         System.out.println(player + " won!");
-                        return true;
+                        if(player==Fill.x) {//AI
+                        	
+                        	return 2;
+                        }else {
+                        	return 1;
+                        }
                     }
                 } else {
                     count = 0;
@@ -158,7 +178,12 @@ public class Main {
                     count++;
                     if (count >= 4) {
                         System.out.println(player + " won!");
-                        return true;
+                        if(player==Fill.x) {//AI
+                        	
+                        	return 2;
+                        }else {
+                        	return 1;
+                        }
                     }
                 } else {
                     count = 0;
@@ -177,7 +202,12 @@ public class Main {
                     count++;
                     if (count >= 4) {
                         System.out.println(player + " won!");
-                        return true;
+                        if(player==Fill.x) {//AI
+                        	
+                        	return 2;
+                        }else {
+                        	return 1;
+                        }
                     }
                 } else {
                     count = 0;
@@ -185,7 +215,7 @@ public class Main {
             }
         }
 
-        return false;
+        return 0;
     }
 
 
