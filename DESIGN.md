@@ -15,6 +15,14 @@ Voici comment l'application est organisée.
 
 ## Modèle statique
 
+Lancement : Charge la classe TppEsirGameserv2App contenue dans com.mycompany.myapp. Cette classe s'occupe de charger toutes les autres classes.
+
+Lors des appels : Les classes "RemoteCall{NomDuJeu}" s'occupent de discuter avec le front-end. Les méthodes sont appelées par des requêtes HTTP GET.
+
+Appels à init() : La méthode génère le tableau, qui reste stocké sur le back-end ; et instancie l'IA, avec une difficulté initiale définie par le client. La difficulté définit la profondeur de pile de récursion sur le minimax. Nous retournons le tableau de jeu au format JSON.
+
+Appels à play() : La méthode redirige les paramètres vers des fonctions internes, permettant de calculer l'endoit où doit jouer l'IA, ou encore de déterminer l'état de la partie, pour renvoyer le tableau modifié (endroit où a joué le joueur, endroit où a joué l'IA s'il y a lieu) ainsi que l'état de la partie au format JSON.
+
 ## Modèle dynamique
 Lancement : Le client se connecte à l'application et arrive sur une page de jeu vierge.
 
@@ -36,9 +44,10 @@ Le score est affiché tout au long de la partie sur un bandeau situé à droite 
 Note : Avec une difficulté importante, l'IA prend un certain temps pour jouer son tour.
 
 Erreurs : Lorsque le joueur joue à Domineering, il arrive qu'une ou deux cases du tableau de jeu disparaisse. La provenance de ce bug reste inconnue puisque les tableaux internes (côtés client et serveur) sont pourtant corrects.
+Il arrive également que l'interface soit rafraîchie inopinément.
 
 # Explication de la prise en compte des contraintes d'analyse
-Nous avons rencontré plusieurs problèmes lors de l'avancé de ce projet:
+Nous avons rencontré plusieurs problèmes lors de l'avancée de ce projet:
 
 -Premièrement JHipster, c'est un outil très puissant et efficace. Le problème était que nous ne connaissions pas du tout cet outil et qu'il a été difficile de s'y adapter. 
 Nous avons finalement réussis à nous adapter et à comprendre son fonctionnement concernant les aspects dont nous avions besoin.
@@ -48,6 +57,8 @@ Les requêtes sont de types GET, malgrés de nombreux essais avec POST nous n'ar
 
 -Interface utilisateur: Quelques problèmes liés à l'interface rencontrés au niveau de JHipster encore. JHipster est fournis avec Bootstrap pour le design des pages, et il est impossible de modifier cela (facilement en tout cas). Souhaitant parfois utilisé angular material, nous avons du restreindre notre selection à Bootstrap.
 Il n'y a pas à proprement parler de routage dans l'application, puisque tous les jeux se jouent sur la page d'accueil (modifiée). Un service permet de savoir quel jeu est selectionné et permet alors de modifier le jeu afficher dans la zone de jeu.
+
+-Utilisation de minimax: Nous avons eu du mal à évaluer les plateaux de jeu. En effet, tous les jeux répondent à des règles de gestion et des stratégies différentes, il faut ainsi à chaque fois changer de manière de réfléchir.
 
 # Cadre de production
 
@@ -80,7 +91,7 @@ optionnel : ```mvn install```
 Lancer le serveur : ```./mvnw```
 
 ## Intelligence Artificielle
-Nous avons décidé de nous baser sur l'algorithme MinMax pour que nos IA puisse jouer au jeu de manière intelligente.
+Nous avons décidé de nous baser sur l'algorithme MiniMax pour que nos IA puissent jouer au jeu de manière intelligente.
 
 ## Interface
 Angular 5 avec bootstrap.
