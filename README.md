@@ -5,9 +5,18 @@ Le projet a pour objectif la création d'un serveur de jeu dans lequel un utilis
 
 ## Grandes fonctionnalités
 Nous avons implémenté plusieurs jeux : 
-  Tic-Tac-Toe
-  Domineering
-  Puissance4
+  Tic-Tac-Toe,
+  Domineering,
+  Puissance4.
+  
+dont les diagrammes de classe sont disponibles aux adresses suivantes : 
+
+https://github.com/cnabot/TPP_ESIR_GAMESERV2/blob/dev/connect4_UML.gif
+
+https://github.com/cnabot/TPP_ESIR_GAMESERV2/blob/dev/domineering_UML.gif
+
+https://github.com/cnabot/TPP_ESIR_GAMESERV2/blob/dev/morpion_UML.gif
+  
   
 Un quatrième est en cours de production: Hex.
 
