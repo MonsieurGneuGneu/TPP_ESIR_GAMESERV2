@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRouteSnapshot, NavigationEnd } from '@angular/router';
 import { Title } from '@angular/platform-browser';
+import { GameinfoService } from '../../games/gameinfo.service';
+import { Principal } from '../../shared';
 
 @Component({
     selector: 'jhi-main',
@@ -11,6 +13,8 @@ export class JhiMainComponent implements OnInit {
     constructor(
         private titleService: Title,
         private router: Router,
+        private gameinfoService: GameinfoService,
+        private principal: Principal
     ) {}
 
     private getPageTitle(routeSnapshot: ActivatedRouteSnapshot) {
