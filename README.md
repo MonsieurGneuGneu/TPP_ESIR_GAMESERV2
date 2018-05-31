@@ -5,8 +5,8 @@ Le projet a pour objectif la création d'un serveur de jeu dans lequel un utilis
 
 ## Grandes fonctionnalités
 Nous avons implémenté plusieurs jeux : 
-  Tic-Tac-Toe
-  Domineering
+  Tic-Tac-Toe,
+  Domineering,
   Puissance4
   
 Un quatrième est en cours de production: Hex.
