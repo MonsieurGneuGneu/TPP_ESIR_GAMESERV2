@@ -1,27 +1,28 @@
 <div class="container">
     <h2 style="text-align: center;"> {{gameinfoService.getGame()}} </h2>
-
-    <form style="text-align: center">
-      <label for="difficulty">Desired difficulty:</label>
-      <select class="form-control" [(ngModel)]="difficulty" (change)="changeDifficulty()">
-        <option value="easy">Easy</option>
-        <option value="medium">Medium</option>
-        <option value="hard">Hard</option>
-        <option value="very-hard">Ouch!</option>
-        <option value="very-very-hard">Are you serious?!</option>
-
-      </select>
-    </form>
-
-      <h2 style="text-align: center"> Score : </h2>
-      <tr style="font-weight: bold;">
-        <td> Player </td>
-        <td> Draw </td>
-        <td> A.I  </td>
-      </tr>
-      <tr style="font-weight: bolder; font-size: 2em;">
-        <td>{{gameinfoService.getScorePlayer()}}</td>
-        <td>{{gameinfoService.getScoreDraw()}}</td>
-        <td>{{gameinfoService.getScoreAI()}}</td>
-      </tr>      
+    <div class="form-group">    
+        <h3 style="padding-top: 1em; text-align: center;">Desired difficulty</h3>
+        <select class="form-control" [(ngModel)]="difficulty" style="margin-bottom: 1em;"
+                  (change)="changeDifficulty()">
+          <option [value]="0">Easy</option>
+          <option [value]="1">Medium</option>
+          <option [value]="2">Hard</option>
+          <option [value]="3">Ouch!</option>
+          <option [value]="4">Are you serious?!</option>
+        </select>
+    </div>
+      <div>
+        <h2 style="text-align: center"> Score : </h2>
+        <tr style="font-weight: bold;">
+          <td> Player </td>
+          <td> Draw </td>
+          <td> A.I  </td>
+        </tr>
+        <tr style="font-weight: bolder; font-size: 2em;">
+          <td>{{gameinfoService.getScorePlayer()}}</td>
+          <td>{{gameinfoService.getScoreDraw()}}</td>
+          <td>{{gameinfoService.getScoreAI()}}</td>
+        </tr> 
+      </div>
+      <h5 style="padding-top: 1em; text-align: center;">To play again reselect a grid size</h5>
 </div>

@@ -7,14 +7,16 @@ import { GameinfoService } from '../../games/gameinfo.service';
   styleUrls: ['./gamedetails.component.css']
 })
 export class GamedetailsComponent implements OnInit {
-  private difficulty: string;
+  private difficulty: number = 0;
 
   constructor(private gameinfoService: GameinfoService) { }
 
   ngOnInit() {
+    this.changeDifficulty();
   }
 
   changeDifficulty() {
-    this.gameinfoService
+    console.log(this.difficulty);
+    this.gameinfoService.setDifficulty(this.difficulty);
   }
 }

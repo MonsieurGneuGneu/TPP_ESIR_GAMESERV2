@@ -38,6 +38,9 @@ import {
     DomineeringComponent,
     BoarddComponent,
     CelldComponent,
+    Connect4Component,
+    Boardc4Component,
+    Cellc4Component,
     GameinfoService
  } from './games';
 
@@ -70,7 +73,10 @@ import {
         GameareaComponent,
         DomineeringComponent,
         BoarddComponent,
-        CelldComponent
+        CelldComponent,
+        Connect4Component,
+        Boardc4Component,
+        Cellc4Component
     ],
     providers: [
         ProfileService,

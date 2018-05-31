@@ -10,7 +10,7 @@ export class JhiMainComponent implements OnInit {
 
     constructor(
         private titleService: Title,
-        private router: Router
+        private router: Router,
     ) {}
 
     private getPageTitle(routeSnapshot: ActivatedRouteSnapshot) {

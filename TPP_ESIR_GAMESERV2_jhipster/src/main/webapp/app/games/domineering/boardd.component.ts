@@ -24,7 +24,6 @@ import { GameinfoService } from '../gameinfo.service';
 export class BoarddComponent implements OnInit {
   @Input() startSize: number;
   private game = "Domineering";
-  private difficulty: number = 4;
   private cells: string[] = []; // local table startSize&startSize, copy of back
   private turn: string;
   private state: number;
@@ -46,11 +45,10 @@ export class BoarddComponent implements OnInit {
  }
 
  init() {
-    this.difficulty = this.gameinfoService.getDifficulty();
-
+    let difficulty = this.gameinfoService.getDifficulty();
     let params = new HttpParams()
             .set('startSize', String(this.startSize))
-            .set('difficulty',String(this.difficulty));
+            .set('difficulty',String(difficulty));
 
     // post request to init with posibly size of board
     this.http.get<any>(SERVER_API_URL + '/api/domineering/init', { params: params }).subscribe((response) => {
@@ -68,7 +66,7 @@ export class BoarddComponent implements OnInit {
   }
 
   clickHandler(idx: number) {
-    console.log(idx);
+    // console.log(idx);
     if ((this.state == 0) && this.turn =='v') {
       // verfify if first cell clicked
       if (this.firstClick != null) {
@@ -76,7 +74,7 @@ export class BoarddComponent implements OnInit {
         // ask the good moves
         this.http.get<any>(SERVER_API_URL + '/api/domineering/canPlay').subscribe((response) => {
           if (response){
-            console.log(response);
+            // console.log(response);
             let x1 = Math.floor(this.firstClick/this.startSize);
             let y1 = this.firstClick%this.startSize;
             // console.log("firstclick: ",x1, y1);
@@ -87,13 +85,16 @@ export class BoarddComponent implements OnInit {
             // check if good move
             for (let i in response.moves) {
               let move = response.moves[i];
-              // console.log("move1: ",move.x1, move.y1);
-              // console.log("move2: ", move.x2, move.y2);
               // good move (not depending of which cell was clicked first)
               if((x1 == move.x1) && (y1 == move.y1) && (x2 == move.x2) && (y2 == move.y2) ||
                         (x2 == move.x1) && (y2 == move.y1) && (x1 == move.x2) && (y1 == move.y2)){
-                console.log("good move!");
+                // AI is long when high difficulty, this is to accelerate the rending
+                this.cells[x1 * this.startSize + y1] = 'v';
+                this.cells[x2 * this.startSize + y2] = 'v';
+                this.turn = 'h';
+                // send info
                 this.clickOnCell(x1, y1, x2, y2);
+                // leave loop
                 break;
               }
             }
@@ -131,7 +132,7 @@ export class BoarddComponent implements OnInit {
              }
            }
          }
-
+         this.turn = 'v';
          // refresh score
          if (response.state != 0) {
           this.gameinfoService.sendInfo(response.state);

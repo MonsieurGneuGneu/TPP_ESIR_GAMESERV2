@@ -1,3 +1,5 @@
 <div class="container">
-  <jhi-domineering *ngIf='gameinfoService.getGame()=="Tic tac toe"' name="game"></jhi-domineering>
+  <jhi-domineering *ngIf='gameinfoService.getGame()=="Domineering"' name="game"></jhi-domineering>
+  <jhi-tictactoe *ngIf='gameinfoService.getGame()=="Tic tac toe"' name="game"></jhi-tictactoe>
+  <jhi-connect4 *ngIf='gameinfoService.getGame()=="Connect 4"' name="game"></jhi-connect4>
 </div>

@@ -3,21 +3,24 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class GameinfoService {
   private game: string;
-  private scoreIA: number;
-  private scorePlayer: number;
-  private scoreDraw: number;
+  private scoreIA: number = 0;
+  private scorePlayer: number = 0;
+  private scoreDraw: number = 0;
   private gameFinished: boolean;
-  private difficulty: string;
+  private difficulty: number;
 
   constructor() { }
 
   newGame(game: string) {
+    if (this.game == game) {
+      this.gameFinished = false;
+    }
+    else {
     this.game = game;
     this.scoreIA = 0;
     this.scorePlayer = 0;
     this.scoreDraw = 0;
-    this.gameFinished = false;
-    this.difficulty = null;
+    }
   }
 
   sendInfo(instantScore: number) {
@@ -48,15 +51,19 @@ export class GameinfoService {
     return this.gameFinished;
   }
   getDifficulty(): number {
-    switch(this.difficulty) {
+    return this.difficulty;
+    /*switch(this.difficulty) {
       case "easy" : return 0;
       case "medium": return 1;
       case "hard": return 2;
       case "very-hard": return 3;
       case "very-very-hard": return 4;
-    }
+    }*/
   }
-  setDifficulty(difficulty: string) {
+  setDifficulty(difficulty: number) {
     this.difficulty = difficulty;
+  }
+  setGame(game: string) {
+    this.game = game;
   }
 }
