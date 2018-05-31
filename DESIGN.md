@@ -30,7 +30,7 @@ Connexion : Le client se connecte à l'application.
 
 Choix du jeu : Le client choisit un jeu et est ensuite redirigé vers celui-ci.
 
-Paramètres du jeu : Le clien choisit un niveau de difficulté (Domineering et Connect 4) et la taille de la grille (Tic tac toe et Domineering).
+Paramètres du jeu : Le client choisit un niveau de difficulté (Domineering et Connect 4) et la taille de la grille (Tic tac toe et Domineering).
 
 Lancement du jeu : Le jeu est initialisé avec les paramètres demandés, une requête d'initialisation est envoyée au serveur qui lui permettra d'initialiser le tableau du jeu côté serveur, pour les calculs et les tours de l'IA.
 
