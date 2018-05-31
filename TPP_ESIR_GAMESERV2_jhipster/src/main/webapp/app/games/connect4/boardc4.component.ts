@@ -51,6 +51,7 @@ export class Boardc4Component implements OnInit {
     let params = new HttpParams()
             .set('difficulty',String(difficulty));
 
+    console.log(difficulty);
     // post request to init with posibly size of board
     this.http.get<any>(SERVER_API_URL + '/api/connect4/init', { params: params }).subscribe((response) => {
       if (response){
