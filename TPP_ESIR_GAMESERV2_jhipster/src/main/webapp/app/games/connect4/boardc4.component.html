@@ -1,0 +1,26 @@
+    <div *ngIf="(widthSize==7) && (heightSize==6)" class=container>
+            <div class="clearfix">
+                <jhi-cellc4 *ngFor="let cell of cells | slice: 0: 7; let i = index" [value]="cell" (userClick)=clickHandler(i)></jhi-cellc4><br>
+            </div>
+                          
+            <div class="clearfix">
+                <jhi-cellc4 *ngFor="let cell of cells | slice: 7: 14; let i = index" [value]="cell" (userClick)=clickHandler(i+7)></jhi-cellc4><br>
+            </div>
+                
+            <div class="clearfix">
+                <jhi-cellc4 *ngFor="let cell of cells | slice: 14: 21; let i = index" [value]="cell" (userClick)=clickHandler(i+14)></jhi-cellc4><br>
+            </div>
+            
+            <div class="clearfix">
+                <jhi-cellc4 *ngFor="let cell of cells | slice: 21: 28; let i = index" [value]="cell" (userClick)=clickHandler(i+21)></jhi-cellc4><br>
+            </div>
+    
+            <div class="clearfix">
+                <jhi-cellc4 *ngFor="let cell of cells | slice: 28: 35; let i = index" [value]="cell" (userClick)=clickHandler(i+28)></jhi-cellc4><br>
+            </div>
+                
+            <div class="clearfix">
+                <jhi-cellc4 *ngFor="let cell of cells | slice: 35: 42; let i = index" [value]="cell" (userClick)=clickHandler(i+35)></jhi-cellc4><br>
+            </div>
+    </div>
+       

@@ -1,0 +1,30 @@
+<jhi-page-ribbon></jhi-page-ribbon>
+<div>
+    <router-outlet name="navbar"></router-outlet>
+</div>
+<div class="container-fluid">
+    <div class="card jh-card">
+        <router-outlet></router-outlet>
+        <router-outlet name="popup"></router-outlet>
+        <div *ngIf="!principal.isAuthenticated()" class="row">
+            <div class="col-md-9">
+                <h1>Welcome player</h1>
+                <p class="lead">Before you can starting playing, please login or register</p>
+            </div>
+        </div>
+        <div *ngIf="principal.isAuthenticated() && !gameinfoService.getGame()" class="row">
+            <div class="col-md-9">
+                <p class="lead">Select a game to play</p>
+            </div>
+        </div>
+        <div *ngIf="gameinfoService.getGame() && principal.isAuthenticated()" class="row">
+            <div class="col-sm">
+                <jhi-gamearea></jhi-gamearea>
+            </div>
+            <div class="col-sm">
+                <jhi-gamedetails></jhi-gamedetails>
+            </div>
+        </div>
+    </div>
+</div>
+<jhi-footerdetails></jhi-footerdetails>

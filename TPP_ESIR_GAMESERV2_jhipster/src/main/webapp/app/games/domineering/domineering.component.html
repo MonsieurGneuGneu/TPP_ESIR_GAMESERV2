@@ -1,0 +1,16 @@
+<div class="form-group">    
+  <h3 style="padding-top: 1em;">Select the grid size</h3>
+  <select class="form-control" [(ngModel)]="startSize" style="margin-bottom: 1em;"
+                              (change)="restart()">
+    <option [value]="0">Undefined</option>
+    <option *ngFor="let i of [3, 4, 5, 6, 7]" [value]="i">{{i}}</option>
+  </select>
+</div>
+
+<div *ngIf="startSize == 0">
+  <img width="300" height="300" alt="Domineering" src="../../../content/images/Domineering.gif">
+</div>
+    
+<div *ngIf="startSize != 0" class="game">
+  <jhi-boardd #board [startSize]="startSize"></jhi-boardd>
+</div>

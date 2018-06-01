@@ -1,0 +1,26 @@
+.container{
+  position: fixed;
+  border: solid;
+  border-radius: 5px;
+
+}
+
+.card-img-top{
+  width: 15em;
+  height: 15em;
+}
+
+.jeu{
+  float: left;
+  width: 15em;
+  margin-left: 5em;
+  margin-top: 3em;
+}
+
+.row{
+margin-left: 6em;
+  margin-top: 15em;
+}
+button{
+  margin-bottom: 1em;
+}

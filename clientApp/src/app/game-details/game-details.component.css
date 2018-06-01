@@ -1,0 +1,12 @@
+.container{
+  border: solid;
+  border-radius: 5px;
+  width: 20em;
+  height: 30em;
+  background-color: cadetblue;
+}
+
+tr,td {
+  padding: 1.5em;
+  text-align: center;
+}
